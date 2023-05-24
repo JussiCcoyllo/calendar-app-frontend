@@ -26,7 +26,7 @@ export class DatabaseConnectionService{
   }
 
   postCreate(date: Date, title: string, description: string): Observable<TaskPost> {
-    return this.http.request<TaskPost>("post", this.link + "/api/v1/create", {body: {dateTime: date, Title: title, Description: description}})
+    return this.http.request<TaskPost>("post", this.link + "/api/v1/create", {body: {dateTime: date, title: title, Description: description}})
   }
 
   deleteTask(id: number): Observable<TaskPost> {
