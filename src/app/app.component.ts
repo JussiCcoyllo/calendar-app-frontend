@@ -119,6 +119,6 @@ export class AppComponent implements OnInit{
 
   handleEventRemove(removeInfo: EventRemoveArg) {
     const removed = removeInfo.event;
-    this.dbservice.deleteTask(parseInt(removed.id))
+    this.dbservice.deleteTask(parseInt(removed.id)).subscribe()
   }
 }
