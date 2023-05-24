@@ -1,14 +1,12 @@
 import { Component, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventInput, EventAddArg, EventApi, EventChangeArg, EventRemoveArg } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, EventChangeArg, EventRemoveArg } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { createEventId } from './event-utils';
 import { DatabaseConnectionService } from './database-connection.service';
 import { Router } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { co } from '@fullcalendar/core/internal-common';
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -46,6 +44,8 @@ export class AppComponent implements OnInit{
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
     /*
+      cannot use due to hacky nature of initialising 
+      events from db
     eventAdd: this.handleAddEvent.bind(this)
     */
     eventChange: this.handleEventChange.bind(this),
@@ -58,7 +58,7 @@ export class AppComponent implements OnInit{
     this.dbservice.fetchAll().subscribe(l => {
       l.responseList.forEach(element => {
         if(element != null && this.calendarComponent != undefined){
-          let r = this.calendarComponent.getApi().addEvent({title: element.title , start: element.dateTime})
+          let r = this.calendarComponent.getApi().addEvent({id: String(element.id), title: element.title , start: element.dateTime})
           if(r != null){
             this.currentEvents.push(r)
           }
@@ -82,6 +82,8 @@ export class AppComponent implements OnInit{
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
+    console.log(selectInfo.start)
+    console.log(selectInfo.startStr)
 
     if (title) {
       const postR = await firstValueFrom(this.dbservice.postCreate(selectInfo.start, title, "a rather generic task"))
@@ -108,10 +110,11 @@ export class AppComponent implements OnInit{
 
   handleEventChange(changeInfo: EventChangeArg) {
     const updated = changeInfo.event;
+    console.log(updated)
     if(updated.id != changeInfo.oldEvent.id){
       console.error("event changed id")
     }
-    this.dbservice.postUpdate(parseInt(updated.id), updated.start ? updated.start : new Date(), updated.display, updated.title)
+    this.dbservice.postUpdate(parseInt(updated.id), updated.start ? updated.start : new Date(), updated.display, updated.title).subscribe()
   }
 
   handleEventRemove(removeInfo: EventRemoveArg) {
