@@ -45,8 +45,8 @@ export class AppComponent implements OnInit{
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
     eventsSet: this.handleEvents.bind(this),
-    eventAdd: this.handleAddEvent.bind(this)
     /*
+    eventAdd: this.handleAddEvent.bind(this)
     eventChange: 
     eventRemove: 
     */
@@ -55,16 +55,15 @@ export class AppComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.dbservice.fetchAll().subscribe(l => {
+      console.log(l.responseList)
       l.responseList.forEach(element => {
         if(element != null && this.calendarComponent != undefined){
-          console.log(element)
-          let r = this.calendarComponent.getApi().addEvent(element)
+          let r = this.calendarComponent.getApi().addEvent({title: element.Title , start: element.dateTime})
           if(r != null){
             this.currentEvents.push(r)
           }
         }
       });
-      console.log(this.calendarComponent?.getApi().getEvents())
     })
   }
 

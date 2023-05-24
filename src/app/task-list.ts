@@ -1,5 +1,5 @@
-import { EventInput } from "@fullcalendar/core";
+import { Task } from "./task";
 
 export interface TaskList {
-    responseList: EventInput[]
+    responseList: Task[]
 }
