@@ -34,6 +34,6 @@ export class DatabaseConnectionService{
   }
 
   postUpdate(id: number, date: Date, description: string, title: string): Observable<TaskPost> {
-    return this.http.request<TaskPost>("post", this.link + "/api/v1/update", {body: {id: id, dateTime: date, Title: title, Description: description }})
+    return this.http.request<TaskPost>("post", this.link + "/api/v1/update", {body: {id: id, dateTime: date, title: title, Description: description }})
   }
 }
