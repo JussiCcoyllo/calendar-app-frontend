@@ -1,6 +1,6 @@
 export interface Task {
     id: number,
-    Title: string,
+    title: string,
     Description: string,
     dateTime: Date
 }

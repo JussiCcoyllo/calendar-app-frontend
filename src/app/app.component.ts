@@ -1,5 +1,5 @@
 import { Component, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventInput, EventAddArg, EventApi } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventInput, EventAddArg, EventApi, EventChangeArg, EventRemoveArg } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
@@ -7,8 +7,9 @@ import listPlugin from '@fullcalendar/list';
 import { createEventId } from './event-utils';
 import { DatabaseConnectionService } from './database-connection.service';
 import { Router } from '@angular/router';
-import { firstValueFrom } from 'rxjs';
 import { FullCalendarComponent } from '@fullcalendar/angular';
+import { co } from '@fullcalendar/core/internal-common';
+import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
@@ -35,8 +36,7 @@ export class AppComponent implements OnInit{
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    // fetch start - end from remote db
-    events: [], // alternatively, use the `events` setting to fetch from a feed
+    events: [],
     weekends: true,
     editable: true,
     selectable: true,
@@ -47,18 +47,18 @@ export class AppComponent implements OnInit{
     eventsSet: this.handleEvents.bind(this),
     /*
     eventAdd: this.handleAddEvent.bind(this)
-    eventChange: 
-    eventRemove: 
     */
+    eventChange: this.handleEventChange.bind(this),
+    eventRemove: this.handleEventRemove.bind(this)
+
   };
   currentEvents: EventApi[] = [];
 
   async ngOnInit(): Promise<void> {
     this.dbservice.fetchAll().subscribe(l => {
-      console.log(l.responseList)
       l.responseList.forEach(element => {
         if(element != null && this.calendarComponent != undefined){
-          let r = this.calendarComponent.getApi().addEvent({title: element.Title , start: element.dateTime})
+          let r = this.calendarComponent.getApi().addEvent({title: element.title , start: element.dateTime})
           if(r != null){
             this.currentEvents.push(r)
           }
@@ -76,7 +76,7 @@ export class AppComponent implements OnInit{
     calendarOptions.weekends = !calendarOptions.weekends;
   }
 
-  handleDateSelect(selectInfo: DateSelectArg) {
+  async handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');
 
     const calendarApi = selectInfo.view.calendar;
@@ -84,8 +84,9 @@ export class AppComponent implements OnInit{
     calendarApi.unselect(); // clear date selection
 
     if (title) {
+      const postR = await firstValueFrom(this.dbservice.postCreate(selectInfo.start, title, "a rather generic task"))
       calendarApi.addEvent({
-        id: createEventId(),
+        id: String(postR.id),
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
@@ -105,10 +106,16 @@ export class AppComponent implements OnInit{
     this.changeDetector.detectChanges();
   }
 
-  handleAddEvent(event: EventAddArg) {
-    this.dbservice.postCreate(
-      event.event.start === null ? new Date() : event.event.start, 
-      event.event.title, 
-      event.event.display).subscribe();
+  handleEventChange(changeInfo: EventChangeArg) {
+    const updated = changeInfo.event;
+    if(updated.id != changeInfo.oldEvent.id){
+      console.error("event changed id")
+    }
+    this.dbservice.postUpdate(parseInt(updated.id), updated.start ? updated.start : new Date(), updated.display, updated.title)
+  }
+
+  handleEventRemove(removeInfo: EventRemoveArg) {
+    const removed = removeInfo.event;
+    this.dbservice.deleteTask(parseInt(removed.id))
   }
 }
