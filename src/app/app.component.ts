@@ -1,18 +1,27 @@
-import { Component, ChangeDetectorRef } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventApi } from '@fullcalendar/core';
+import { Component, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventInput, EventAddArg, EventApi } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { INITIAL_EVENTS, createEventId } from './event-utils';
+import { createEventId } from './event-utils';
+import { DatabaseConnectionService } from './database-connection.service';
+import { Router } from '@angular/router';
+import { firstValueFrom } from 'rxjs';
+import { FullCalendarComponent } from '@fullcalendar/angular';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit{
   calendarVisible = true;
+  @ViewChild('calendar') calendarComponent: FullCalendarComponent | undefined;
+
+  constructor(private changeDetector: ChangeDetectorRef, private dbservice: DatabaseConnectionService, private router: Router) {
+  }
+
   calendarOptions: CalendarOptions = {
     plugins: [
       interactionPlugin,
@@ -26,7 +35,8 @@ export class AppComponent {
       right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
     },
     initialView: 'dayGridMonth',
-    initialEvents: INITIAL_EVENTS, // alternatively, use the `events` setting to fetch from a feed
+    // fetch start - end from remote db
+    events: [], // alternatively, use the `events` setting to fetch from a feed
     weekends: true,
     editable: true,
     selectable: true,
@@ -34,16 +44,28 @@ export class AppComponent {
     dayMaxEvents: true,
     select: this.handleDateSelect.bind(this),
     eventClick: this.handleEventClick.bind(this),
-    eventsSet: this.handleEvents.bind(this)
-    /* you can update a remote database when these fire:
-    eventAdd:
-    eventChange:
-    eventRemove:
+    eventsSet: this.handleEvents.bind(this),
+    eventAdd: this.handleAddEvent.bind(this)
+    /*
+    eventChange: 
+    eventRemove: 
     */
   };
   currentEvents: EventApi[] = [];
 
-  constructor(private changeDetector: ChangeDetectorRef) {
+  async ngOnInit(): Promise<void> {
+    this.dbservice.fetchAll().subscribe(l => {
+      l.responseList.forEach(element => {
+        if(element != null && this.calendarComponent != undefined){
+          console.log(element)
+          let r = this.calendarComponent.getApi().addEvent(element)
+          if(r != null){
+            this.currentEvents.push(r)
+          }
+        }
+      });
+      console.log(this.calendarComponent?.getApi().getEvents())
+    })
   }
 
   handleCalendarToggle() {
@@ -57,6 +79,7 @@ export class AppComponent {
 
   handleDateSelect(selectInfo: DateSelectArg) {
     const title = prompt('Please enter a new title for your event');
+
     const calendarApi = selectInfo.view.calendar;
 
     calendarApi.unselect(); // clear date selection
@@ -81,5 +104,12 @@ export class AppComponent {
   handleEvents(events: EventApi[]) {
     this.currentEvents = events;
     this.changeDetector.detectChanges();
+  }
+
+  handleAddEvent(event: EventAddArg) {
+    this.dbservice.postCreate(
+      event.event.start === null ? new Date() : event.event.start, 
+      event.event.title, 
+      event.event.display).subscribe();
   }
 }
