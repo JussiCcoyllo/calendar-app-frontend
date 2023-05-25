@@ -8,32 +8,35 @@ import { createEventId } from './event-utils';
 import { DatabaseConnectionService } from './database-connection.service';
 import { Router } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
-import { co } from '@fullcalendar/core/internal-common';
+ 
+ 
 import { firstValueFrom } from 'rxjs';
 
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css']
+  styleUrls: ['./app.component.css'],
 })
-export class AppComponent implements OnInit{
+export class AppComponent implements OnInit {
   calendarVisible = true;
   @ViewChild('calendar') calendarComponent: FullCalendarComponent | undefined;
-
-  constructor(private changeDetector: ChangeDetectorRef, private dbservice: DatabaseConnectionService, private router: Router) {
+  variable = true;
+  showContent() {
+    this.variable = !this.variable;
   }
 
+  constructor(
+    private changeDetector: ChangeDetectorRef,
+    private dbservice: DatabaseConnectionService,
+    private router: Router
+  ) {}
+
   calendarOptions: CalendarOptions = {
-    plugins: [
-      interactionPlugin,
-      dayGridPlugin,
-      timeGridPlugin,
-      listPlugin,
-    ],
+    plugins: [interactionPlugin, dayGridPlugin, timeGridPlugin, listPlugin],
     headerToolbar: {
       left: 'prev,next today',
       center: 'title',
-      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek'
+      right: 'dayGridMonth,timeGridWeek,timeGridDay,listWeek',
     },
     initialView: 'dayGridMonth',
     events: [],
@@ -49,22 +52,23 @@ export class AppComponent implements OnInit{
     eventAdd: this.handleAddEvent.bind(this)
     */
     eventChange: this.handleEventChange.bind(this),
-    eventRemove: this.handleEventRemove.bind(this)
-
+    eventRemove: this.handleEventRemove.bind(this),
   };
   currentEvents: EventApi[] = [];
 
   async ngOnInit(): Promise<void> {
-    this.dbservice.fetchAll().subscribe(l => {
-      l.responseList.forEach(element => {
-        if(element != null && this.calendarComponent != undefined){
-          let r = this.calendarComponent.getApi().addEvent({title: element.title , start: element.dateTime})
-          if(r != null){
-            this.currentEvents.push(r)
+    this.dbservice.fetchAll().subscribe((l) => {
+      l.responseList.forEach((element) => {
+        if (element != null && this.calendarComponent != undefined) {
+          let r = this.calendarComponent
+            .getApi()
+            .addEvent({ title: element.title, start: element.dateTime });
+          if (r != null) {
+            this.currentEvents.push(r);
           }
         }
       });
-    })
+    });
   }
 
   handleCalendarToggle() {
@@ -84,19 +88,29 @@ export class AppComponent implements OnInit{
     calendarApi.unselect(); // clear date selection
 
     if (title) {
-      const postR = await firstValueFrom(this.dbservice.postCreate(selectInfo.start, title, "a rather generic task"))
+      const postR = await firstValueFrom(
+        this.dbservice.postCreate(
+          selectInfo.start,
+          title,
+          'a rather generic task'
+        )
+      );
       calendarApi.addEvent({
         id: String(postR.id),
         title,
         start: selectInfo.startStr,
         end: selectInfo.endStr,
-        allDay: selectInfo.allDay
+        allDay: selectInfo.allDay,
       });
     }
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+    if (
+      confirm(
+        `Are you sure you want to delete the event '${clickInfo.event.title}'`
+      )
+    ) {
       clickInfo.event.remove();
     }
   }
@@ -108,14 +122,19 @@ export class AppComponent implements OnInit{
 
   handleEventChange(changeInfo: EventChangeArg) {
     const updated = changeInfo.event;
-    if(updated.id != changeInfo.oldEvent.id){
-      console.error("event changed id")
+    if (updated.id != changeInfo.oldEvent.id) {
+      console.error('event changed id');
     }
-    this.dbservice.postUpdate(parseInt(updated.id), updated.start ? updated.start : new Date(), updated.display, updated.title)
+    this.dbservice.postUpdate(
+      parseInt(updated.id),
+      updated.start ? updated.start : new Date(),
+      updated.display,
+      updated.title
+    );
   }
 
   handleEventRemove(removeInfo: EventRemoveArg) {
     const removed = removeInfo.event;
-    this.dbservice.deleteTask(parseInt(removed.id))
+    this.dbservice.deleteTask(parseInt(removed.id));
   }
 }
