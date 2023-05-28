@@ -31,10 +31,10 @@ handleErrorLogin: any;
     if (!this.loginForm.valid) {
       return;
     }
-    this.authService.login(this.loginForm.value).pipe(
-      // route to protected/dashboard, if login was successfull
-      tap(() => this.router.navigate(['../main-page/main.page']))
-    ).subscribe();
+    // this.authService.login(this.loginForm.value).pipe(
+    //   // route to protected/dashboard, if login was successfull
+    //   tap(() => this.router.navigate(['../main-page/main.page']))
+    // ).subscribe();
   }
   // public handleErrorLogin = (email: string, errorName: string) => {
   //   return (
