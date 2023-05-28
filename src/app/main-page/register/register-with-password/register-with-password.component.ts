@@ -2,6 +2,9 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import Validation from '../../../Validations';
+import { Router } from '@angular/router';
+import { AuthService } from 'src/app/services/auth.service';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'app-register-with-password',
@@ -15,7 +18,6 @@ export class RegisterWithPasswordComponent {
 
   registerForm = this.fb.group(
     {
-      user: ['', [Validators.required, Validators.name]],
       userName: ['', Validators.required],
       password: ['', [Validators.required, Validators.minLength(6)]],
       confirmPassword: ['', Validators.required],
@@ -26,17 +28,30 @@ export class RegisterWithPasswordComponent {
   );
 
   constructor(
+    private router: Router,
+    private authService: AuthService,
     private fb: NonNullableFormBuilder,
     private snackBar: MatSnackBar
   ) {}
   
-  public handleErrorRegister = (controlName: string, errorName: string) => {
-    return (
-      this.registerForm.get(controlName)?.touched &&
-      this.registerForm.get(controlName)?.errors &&
-      this.registerForm.get(controlName)?.hasError(errorName)
-    );
-  };
+  register() {
+    if (!this.registerForm.valid) {
+      return;
+    }
+    this.authService.register(this.registerForm.value).pipe(
+      // If registration was successfull, then navigate to login route
+      tap(() => this.router.navigate(['../login']))
+    ).subscribe();
+  }
+  
+
+  // public handleErrorRegister = (controlName: string, errorName: string) => {
+  //   return (
+  //     this.registerForm.get(controlName)?.touched &&
+  //     this.registerForm.get(controlName)?.errors &&
+  //     this.registerForm.get(controlName)?.hasError(errorName)
+  //   );
+  // };
 
   
 

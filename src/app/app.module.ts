@@ -18,7 +18,15 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
+import { JwtModule } from '@auth0/angular-jwt';
 
+// specify the key where the token is stored in the local storage
+export const LOCALSTORAGE_TOKEN_KEY = 'angular_material_login_and_register_example';
+
+// specify tokenGetter for the angular jwt package
+export function tokenGetter() {
+  return localStorage.getItem(LOCALSTORAGE_TOKEN_KEY);
+}
 
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
@@ -28,7 +36,8 @@ import { MatTabsModule } from '@angular/material/tabs';
     LoginComponent, 
     LoginWithPasswordComponent, 
     RegisterComponent, 
-    RegisterWithPasswordComponent
+    RegisterWithPasswordComponent,
+  
     
   ],
   imports: [
@@ -45,7 +54,13 @@ import { MatTabsModule } from '@angular/material/tabs';
     MatCardModule,
     MatPseudoCheckboxModule,
     MatSnackBarModule,
-    MatTabsModule
+    MatTabsModule,
+    JwtModule.forRoot({
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: ['localhost:3000', 'localhost:8080']
+      }
+    })
     
 
 
