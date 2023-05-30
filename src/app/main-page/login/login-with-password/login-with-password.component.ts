@@ -20,7 +20,17 @@ export class LoginWithPasswordComponent {
     username: ['', [Validators.required]],
     password: ['', [Validators.required, Validators.minLength(6)]],
   });
-handleErrorLogin: any;
+
+  handleErrorLogin: any;
+
+  send(){
+    // send a login request to the backend
+    //
+    // some stuff
+    //
+    // if succeeds
+    this.snackBar.open(this.loginMessage, "Dismiss");
+  }
 
   constructor(
     private fb: NonNullableFormBuilder,
@@ -28,41 +38,11 @@ handleErrorLogin: any;
     private router: Router,
     private authService: AuthService
   ) {}
-  
+
   login(name: string, password: string) {
     const loginRequest: LoginRequest = {
       name,
       password
     };
-
-  //   this.authService.login(loginRequest).subscribe(
-  //     response => {
-  //       // Handle successful login
-  //     },
-  //     error => {
-  //       // Handle login error
-  //     }
-  //   );
-  // }
-
-  
+  }
 }
-}
-
-  // login() {
-  //   if (!this.loginForm.valid) {
-  //     return;
-  //   }
-    // this.authService.login(this.loginForm.value).pipe(
-    //   // route to protected/dashboard, if login was successfull
-    //   tap(() => this.router.navigate(['../main-page/main.page']))
-    // ).subscribe();
-  
-  // public handleErrorLogin = (email: string, errorName: string) => {
-  //   return (
-  //     this.loginForm.get(email)?.touched &&
-  //     this.loginForm.get(email)?.errors &&
-  //     this.loginForm.get(email)?.hasError(errorName)
-  //   );
-  // };
-

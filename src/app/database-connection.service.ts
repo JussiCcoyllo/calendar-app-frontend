@@ -2,8 +2,9 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { EventInput } from '@fullcalendar/core';
 import { Observable, catchError, of } from 'rxjs';
-import { TaskPost } from './task-post';
+import { TaskPost } from './main-page/task/task-post';
 import { TaskList } from './main-page/task/task-list';
+import { Task } from './main-page/task/task'
 
 @Injectable({
   providedIn: 'root'
@@ -20,8 +21,8 @@ export class DatabaseConnectionService{
   fetchInRange(first: Date, last: Date): Observable<TaskList> {
     return this.http.request<TaskList>("get", this.link + "/api/v1/read/all/range", {body: {start: first, end: last}})
   }
-  
-  fetchInDay(first: Date): Observable<EventInput> {
+
+  fetchInDay(first: Date): Observable<Task> {
     return this.http.request<Task>("get", this.link + "/api/v1/read/all/day", {body: {date: first}})
   }
 
