@@ -22,7 +22,7 @@ export interface LoginResponse {
 Interface for the Login Request (can look different, based on your backend api)
 */
 export interface LoginRequest {
-  name: string;
+  username: string;
   password: string;
 }
 
@@ -30,7 +30,7 @@ export interface LoginRequest {
 Interface for the Register Request (can look different, based on your backend api)
 */
 export interface RegisterRequest {
-  name: string;
+  username: string;
   password: string;
 }
 
@@ -38,5 +38,5 @@ export interface RegisterRequest {
 Interface for the Register Response (can look different, based on your backend api)
 */
 export interface RegisterResponse {
-  name: string;
+  username: string;
 }

@@ -6,38 +6,39 @@ import { map, Observable, of, switchMap, tap  } from 'rxjs';
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { LOCALSTORAGE_TOKEN_KEY } from '../app.module';
 import { User } from '../main-page/user/user';
+import { UserDelete } from '../main-page/user/user.delete';
 
-export const loginResponse: LoginResponse = {
-  accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
-  refreshToken: {
-    id: 1,
-    token: 'fakeRefreshToken...should al come from real backend',
-    refreshCount: 2,
-    expiryDate: new Date(),
-  },
-  tokenType: 'JWT'
-}
+// export const loginResponse: LoginResponse = {
+//   // fakeAccessToken.....should all come from real backend
+//   accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
+//   refreshToken: {
+//     id: 1,
+//     token: 'fakeRefreshToken...should al come from real backend',
+//     refreshCount: 2,
+//     expiryDate: new Date(),
+//   },
+//   tokenType: 'JWT'
+// }
+
 
 @Injectable({
   providedIn: 'root'
 })
-
-@Injectable({
-  providedIn: 'root'
-})
-export class AuthService {
+export class UserService {
   link = 'https://http://localhost:9090/';
+  
 
   constructor(private http: HttpClient) {}
 
-  send(text: string): Observable<User> {
-    console.log(`${this.link}/send?text=${text}`);
-    return this.http.put<User>(`${this.link}/send?text=${text}`, '');
+  read(username: string, password: string): Observable<User> {
+    const url = `${this.link}/API2/users/login/`;
+    const body = { username, password };
+    return this.http.put<User>(url, body);
   }
 
-  create(name: string, pwdHashAndSalt: string): Observable<User> {
-    const url = `${this.link}/users/create`;
-    const body = { name, pwdHashAndSalt };
+  create(username: string, password: string): Observable<User> {
+    const url = `${this.link}/api2/user/create`;
+    const body = { username, password };
     return this.http.post<User>(url, body);
   }
 
@@ -45,16 +46,17 @@ export class AuthService {
     return this.http.get<User[]>(`${this.link}/read_all`);
   }
 
-  update(id: number, name: string, pwdHashAndSalt: string): Observable<User> {
-    const url = `${this.link}/users/delete/${id}`;
-    const body = { name, pwdHashAndSalt };
+  update(id: number, name: string, password : string): Observable<User> {
+    const url = `${this.link}/API2/users/update/${id}`;
+    const body = { name, password };
     return this.http.put<User>(url, body);
   }
 
-  // delete(id: number): Observable<User> {
-  //   const url = `${this.link}/users/${id}`;
-    // return this.http.delete(url);
-  // }
+  delete(id: number): Observable<UserDelete> {
+    const url = `${this.link}/API2/users/delete/${id}`;
+    const body = { id };
+    return this.http.delete<UserDelete>(url);
+  }
 }
 
 //   constructor(
