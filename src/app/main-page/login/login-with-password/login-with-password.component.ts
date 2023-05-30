@@ -29,11 +29,11 @@ handleErrorLogin: any;
     private authService: AuthService
   ) {}
   
-  // login(name: string, password: string) {
-  //   const loginRequest: LoginRequest = {
-  //     name,
-  //     password
-  //   };
+  login(name: string, password: string) {
+    const loginRequest: LoginRequest = {
+      name,
+      password
+    };
 
   //   this.authService.login(loginRequest).subscribe(
   //     response => {
@@ -46,6 +46,7 @@ handleErrorLogin: any;
   // }
 
   
+}
 }
 
   // login() {
