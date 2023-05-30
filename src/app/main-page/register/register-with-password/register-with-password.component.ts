@@ -1,8 +1,8 @@
-import { Component } from '@angular/core';
+import { Component, Inject } from '@angular/core';
 import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { UserService } from 'src/app/services/user.service'; 
 import { tap } from 'rxjs';
 import Validations from '../../../Validations';
 
@@ -17,6 +17,7 @@ export class RegisterWithPasswordComponent {
   passwordHide = true;
   confirmPasswordHide = true;
 
+
   registerForm = new FormGroup({
     username: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
@@ -25,24 +26,33 @@ export class RegisterWithPasswordComponent {
     { validators: Validations.passwordsMatching }
   )
 
-  constructor(
+  constructor(@Inject(UserService)
     private router: Router,
-    private authService: AuthService,
-    private fb: NonNullableFormBuilder,
+    private userService: UserService,
     private snackBar: MatSnackBar
   ) {}
-
+  
   register() {
     if (!this.registerForm.valid) {
       return;
     }
     const username = this.registerForm.get<string>("username")?.value
     const pwd = this.registerForm.get<string>("password")?.value
-    this.authService.create(username, pwd).pipe(
+    this.userService.create(username, pwd).pipe(
       // If registration was successfull, then navigate to login route
       tap(() => this.router.navigate(['../login']))
     ).subscribe();
   }
+
+  // public handleErrorRegister = (controlName: string, errorName: string) => {
+  //   return (
+  //     this.registerForm.get(controlName)?.touched &&
+  //     this.registerForm.get(controlName)?.errors &&
+  //     this.registerForm.get(controlName)?.hasError(errorName)
+  //   );
+  // };
+
+  
 
   openSnackBar(message: string, action: string) {
     this.snackBar.open(message, action);
