@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { EventInput } from '@fullcalendar/core';
-import { Observable, catchError, of } from 'rxjs';
+import { Observable } from 'rxjs';
 import { TaskPost } from './main-page/task/task-post';
 import { TaskList } from './main-page/task/task-list';
 import { Task } from './main-page/task/task'

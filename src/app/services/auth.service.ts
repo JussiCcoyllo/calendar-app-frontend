@@ -8,7 +8,6 @@ import { LOCALSTORAGE_TOKEN_KEY } from '../app.module';
 import { User } from '../main-page/user/user';
 
 export const loginResponse: LoginResponse = {
-  // fakeAccessToken.....should all come from real backend
   accessToken: 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJzdWIiOiIxMjM0NTY3ODkwIiwibmFtZSI6IkpvaG4gRG9lIiwiaWF0IjoxNTE2MjM5MDIyfQ.SflKxwRJSMeKKF2QT4fwpMeJf36POk6yJV_adQssw5c',
   refreshToken: {
     id: 1,
@@ -28,7 +27,6 @@ export const loginResponse: LoginResponse = {
 })
 export class AuthService {
   link = 'https://http://localhost:9090/';
-  
 
   constructor(private http: HttpClient) {}
 
