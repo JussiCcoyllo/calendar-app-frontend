@@ -2,9 +2,11 @@ import { Component } from '@angular/core';
 import { NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { AppComponent } from 'src/app/app.component';
-import { AuthService } from 'src/app/services/auth.service';
+import { DatabaseConnectionService } from 'src/app/database-connection.service';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { LoginRequest } from 'src/app/services/interfaces';
+import { AuthService } from 'src/app/services/auth.service';
 
 @Component({
   selector: 'app-login-with-password',
@@ -27,15 +29,34 @@ handleErrorLogin: any;
     private authService: AuthService
   ) {}
   
-  login() {
-    if (!this.loginForm.valid) {
-      return;
-    }
+  // login(name: string, password: string) {
+  //   const loginRequest: LoginRequest = {
+  //     name,
+  //     password
+  //   };
+
+  //   this.authService.login(loginRequest).subscribe(
+  //     response => {
+  //       // Handle successful login
+  //     },
+  //     error => {
+  //       // Handle login error
+  //     }
+  //   );
+  // }
+
+  
+}
+
+  // login() {
+  //   if (!this.loginForm.valid) {
+  //     return;
+  //   }
     // this.authService.login(this.loginForm.value).pipe(
     //   // route to protected/dashboard, if login was successfull
     //   tap(() => this.router.navigate(['../main-page/main.page']))
     // ).subscribe();
-  }
+  
   // public handleErrorLogin = (email: string, errorName: string) => {
   //   return (
   //     this.loginForm.get(email)?.touched &&
@@ -44,7 +65,3 @@ handleErrorLogin: any;
   //   );
   // };
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action);
-  }
-}

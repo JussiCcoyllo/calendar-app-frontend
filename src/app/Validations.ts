@@ -1,21 +1,15 @@
-import { AbstractControl, ValidatorFn } from '@angular/forms';
+import { AbstractControl, ValidationErrors } from '@angular/forms';
 
 export default class Validation {
-  static match(controlName: string, checkControlName: string): ValidatorFn {
-    return (controls: AbstractControl) => {
-      const control = controls.get(controlName);
-      const checkControl = controls.get(checkControlName);
+  static passwordsMatching(control: AbstractControl): ValidationErrors | null {
+    const password = control.get('password')?.value;
+    const passwordConfirm = control.get('passwordConfirm')?.value;
 
-      if (checkControl?.errors && !checkControl.errors['matching']) {
-        return null;
-      }
-
-      if (control?.value !== checkControl?.value) {
-        controls.get(checkControlName)?.setErrors({ matching: true });
-        return { matching: true };
-      } else {
-        return null;
-      }
-    };
+    // Check if passwords are matching. If not then add the error 'passwordsNotMatching: true' to the form
+    if ((password === passwordConfirm) && (password !== null && passwordConfirm !== null)) {
+      return null;
+    } else {
+      return { passwordsNotMatching: true };
+    }
   }
 }

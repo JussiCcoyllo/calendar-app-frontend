@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
-import { Observable } from 'rxjs';
+import { EventInput } from '@fullcalendar/core';
+import { Observable, catchError, of } from 'rxjs';
 import { TaskPost } from './task-post';
-import { TaskList } from './task-list';
-import { Task } from './task';
+import { TaskList } from './main-page/task/task-list';
 
 @Injectable({
   providedIn: 'root'
@@ -21,12 +21,12 @@ export class DatabaseConnectionService{
     return this.http.request<TaskList>("get", this.link + "/api/v1/read/all/range", {body: {start: first, end: last}})
   }
   
-  fetchInDay(first: Date): Observable<Task> {
+  fetchInDay(first: Date): Observable<EventInput> {
     return this.http.request<Task>("get", this.link + "/api/v1/read/all/day", {body: {date: first}})
   }
 
   postCreate(date: Date, title: string, description: string): Observable<TaskPost> {
-    return this.http.request<TaskPost>("post", this.link + "/api/v1/create", {body: {dateTime: date, title: title, Description: description}})
+    return this.http.request<TaskPost>("post", this.link + "/api/v1/create", {body: {dateTime: date, Title: title, Description: description}})
   }
 
   deleteTask(id: number): Observable<TaskPost> {
@@ -34,6 +34,6 @@ export class DatabaseConnectionService{
   }
 
   postUpdate(id: number, date: Date, description: string, title: string): Observable<TaskPost> {
-    return this.http.request<TaskPost>("post", this.link + "/api/v1/update", {body: {id: id, dateTime: date, title: title, Description: description }})
+    return this.http.request<TaskPost>("post", this.link + "/api/v1/update", {body: {id: id, dateTime: date, Title: title, Description: description }})
   }
 }

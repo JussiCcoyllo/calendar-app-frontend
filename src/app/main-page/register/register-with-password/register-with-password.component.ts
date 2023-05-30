@@ -1,10 +1,11 @@
 import { Component } from '@angular/core';
-import { NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import Validation from '../../../Validations';
 import { Router } from '@angular/router';
-import { AuthService } from 'src/app/services/auth.service';
+import { AuthService } from 'src/app/services/auth.service'; 
 import { tap } from 'rxjs';
+import Validations from '../../../Validations';
+
 
 @Component({
   selector: 'app-register-with-password',
@@ -16,16 +17,14 @@ export class RegisterWithPasswordComponent {
   passwordHide = true;
   confirmPasswordHide = true;
 
-  registerForm = this.fb.group(
-    {
-      userName: ['', Validators.required],
-      password: ['', [Validators.required, Validators.minLength(6)]],
-      confirmPassword: ['', Validators.required],
-    },
-    {
-      validators: Validation.match('password', 'confirmPassword'),
-    }
-  );
+
+  registerForm = new FormGroup({
+    username: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required]),
+    passwordConfirm: new FormControl(null, [Validators.required])
+  },
+    { validators: Validations.passwordsMatching }
+  )
 
   constructor(
     private router: Router,
@@ -38,7 +37,7 @@ export class RegisterWithPasswordComponent {
     if (!this.registerForm.valid) {
       return;
     }
-    // this.authService.register(this.registerForm.value).pipe(
+    // this.authService.register().pipe(
     //   // If registration was successfull, then navigate to login route
     //   tap(() => this.router.navigate(['../login']))
     // ).subscribe();
