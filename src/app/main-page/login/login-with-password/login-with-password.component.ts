@@ -32,15 +32,16 @@ export class LoginWithPasswordComponent {
       return;
     }
     const username = this.loginForm.get<string>("username")?.value
-    const pwd = this.loginForm.get<string>("password")?.value
-    this.userService.read(username, pwd).pipe(
+    const password = this.loginForm.get<string>("password")?.value
+    this.userService.read(username, password).pipe(
       // If registration was successfull, then navigate to login route
       tap(() => this.router.navigate(['../login']))
     ).subscribe();
   }
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action);
+  
+  openSnackBar(message: string, action: string, duration: number = 3000) {
+    this.snackBar.open(message, action, {duration});
   }
 }
 

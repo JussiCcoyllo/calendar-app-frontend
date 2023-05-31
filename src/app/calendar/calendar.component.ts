@@ -1,14 +1,12 @@
 import { Component, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventInput, EventAddArg, EventApi, EventChangeArg, EventRemoveArg } from '@fullcalendar/core';
+import { CalendarOptions, DateSelectArg, EventClickArg, EventApi, EventChangeArg, EventRemoveArg } from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { createEventId } from '../event-utils';
-import { DatabaseConnectionService } from '../database-connection.service';
+import { DatabaseConnectionService } from '../data/database-connection.service'; 
 import { Router } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
- 
 import { firstValueFrom } from 'rxjs';
 
 @Component({
@@ -57,7 +55,7 @@ export class CalendarComponent implements OnInit {
   currentEvents: EventApi[] = [];
 
   async ngOnInit(): Promise<void> {
-    this.dbservice.fetchAll().subscribe((l) => {
+    this.dbservice.fetchAllTasks().subscribe((l) => {
       l.responseList.forEach((element) => {
         if (element != null && this.calendarComponent != undefined) {
           let r = this.calendarComponent
@@ -89,7 +87,7 @@ export class CalendarComponent implements OnInit {
 
     if (title) {
       const postR = await firstValueFrom(
-        this.dbservice.postCreate(
+        this.dbservice.postCreateTask(
           selectInfo.start,
           title,
           'a rather generic task'
@@ -125,7 +123,7 @@ export class CalendarComponent implements OnInit {
     if (updated.id != changeInfo.oldEvent.id) {
       console.error('event changed id');
     }
-    this.dbservice.postUpdate(
+    this.dbservice.postUpdateTask(
       parseInt(updated.id),
       updated.start ? updated.start : new Date(),
       updated.display,
@@ -135,6 +133,6 @@ export class CalendarComponent implements OnInit {
 
   handleEventRemove(removeInfo: EventRemoveArg) {
     const removed = removeInfo.event;
-    this.dbservice.deleteTask(parseInt(removed.id));
+    this.dbservice.deleteTaskTask(parseInt(removed.id));
   }
 }

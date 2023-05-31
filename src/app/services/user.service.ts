@@ -1,12 +1,9 @@
 import { Injectable } from '@angular/core';
-import { LoginResponse, LoginRequest, RegisterRequest, RegisterResponse } from './interfaces';
 import { HttpClient } from '@angular/common/http';
-import { MatSnackBar } from '@angular/material/snack-bar';
-import { map, Observable, of, switchMap, tap  } from 'rxjs';
-import { JwtHelperService } from '@auth0/angular-jwt';
-import { LOCALSTORAGE_TOKEN_KEY } from '../app.module';
+import { map, Observable } from 'rxjs';
 import { User } from '../main-page/user/user';
-import { UserDelete } from '../main-page/user/user.delete';
+import { UserGet } from '../main-page/user/user-get';
+import { UserDelete } from '../main-page/user/user-delete';
 
 // export const loginResponse: LoginResponse = {
 //   // fakeAccessToken.....should all come from real backend
@@ -25,21 +22,22 @@ import { UserDelete } from '../main-page/user/user.delete';
   providedIn: 'root'
 })
 export class UserService {
-  link = 'https://http://localhost:9090/';
+  link = 'http://localhost:9090';
   
 
   constructor(private http: HttpClient) {}
 
-  read(username: string, password: string): Observable<User> {
-    const url = `${this.link}/API2/users/login/`;
-    const body = { username, password };
-    return this.http.put<User>(url, body);
+  read(username: string, password: string): Observable<UserGet> {
+    const url = `${this.link}/api/v2/user/get`;
+    const body = { name:username, password };
+    return this.http.get<UserGet>(url, {params:body})
+    // return this.http.put<UserDelete>(url, body);
   }
 
   create(username: string, password: string): Observable<User> {
-    const url = `${this.link}/api2/user/create`;
-    const body = { username, password };
-    return this.http.post<User>(url, body);
+    const url = `${this.link}/api/v2/user/create`;
+    const body = { name:username, password };
+    return this.http.post<User>(url, body); 
   }
 
   read_all(): Observable<User[]> {
@@ -47,13 +45,13 @@ export class UserService {
   }
 
   update(id: number, name: string, password : string): Observable<User> {
-    const url = `${this.link}/API2/users/update/${id}`;
+    const url = `${this.link}/api/v2/user/update/${id}`;
     const body = { name, password };
     return this.http.put<User>(url, body);
   }
 
   delete(id: number): Observable<UserDelete> {
-    const url = `${this.link}/API2/users/delete/${id}`;
+    const url = `${this.link}/api/v2/user/delete/${id}`;
     const body = { id };
     return this.http.delete<UserDelete>(url);
   }

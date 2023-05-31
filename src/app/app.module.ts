@@ -39,7 +39,8 @@ export function tokenGetter() {
     LoginComponent, 
     LoginWithPasswordComponent, 
     RegisterComponent, 
-    RegisterWithPasswordComponent, CalendarComponent,
+    RegisterWithPasswordComponent, 
+    CalendarComponent
   
     
   ],

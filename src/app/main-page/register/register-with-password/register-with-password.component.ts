@@ -37,11 +37,12 @@ export class RegisterWithPasswordComponent {
       return;
     }
     const username = this.registerForm.get<string>("username")?.value
-    const pwd = this.registerForm.get<string>("password")?.value
-    this.userService.create(username, pwd).pipe(
+    const password = this.registerForm.get<string>("password")?.value
+    this.userService.create(username, password).pipe(
       // If registration was successfull, then navigate to login route
-      tap(() => this.router.navigate(['../login']))
+      tap(() => this.router.navigate(['http://localhost:4200/api/v2/user/main-page']))
     ).subscribe();
+    
   }
 
   // public handleErrorRegister = (controlName: string, errorName: string) => {
@@ -54,7 +55,7 @@ export class RegisterWithPasswordComponent {
 
   
 
-  openSnackBar(message: string, action: string) {
-    this.snackBar.open(message, action);
+  openSnackBar(message: string, action: string, duration: number = 3000) {
+    this.snackBar.open(message, action, {duration});
   }
 }
