@@ -1,24 +1,31 @@
 import { Component, ChangeDetectorRef, OnInit, ViewChild } from '@angular/core';
-import { CalendarOptions, DateSelectArg, EventClickArg, EventInput, EventAddArg, EventApi, EventChangeArg, EventRemoveArg } from '@fullcalendar/core';
+import {
+  CalendarOptions,
+  DateSelectArg,
+  EventClickArg,
+  EventInput,
+  EventAddArg,
+  EventApi,
+  EventChangeArg,
+  EventRemoveArg,
+} from '@fullcalendar/core';
 import interactionPlugin from '@fullcalendar/interaction';
 import dayGridPlugin from '@fullcalendar/daygrid';
 import timeGridPlugin from '@fullcalendar/timegrid';
 import listPlugin from '@fullcalendar/list';
-import { createEventId } from './event-utils';
-import { DatabaseConnectionService } from './database-connection.service';
+import { createEventId } from '../event-utils';
+import { DatabaseConnectionService } from '../database-connection.service';
 import { Router } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
- 
- 
+
 import { firstValueFrom } from 'rxjs';
 
 @Component({
-  selector: 'app-root',
-  templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  
+  selector: 'app-calendar-grid',
+  templateUrl: './calendar-grid.component.html',
+  styleUrls: ['./calendar-grid.component.css'],
 })
-export class AppComponent implements OnInit {
+export class CalendarGridComponent implements OnInit{
   calendarVisible = true;
   @ViewChild('calendar') calendarComponent: FullCalendarComponent | undefined;
   variable = true;

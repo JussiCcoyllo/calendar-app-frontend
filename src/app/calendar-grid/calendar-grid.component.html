@@ -1,0 +1,61 @@
+<div class="demo-app">
+  <div class="demo-app-sidebar" *ngIf="variable">
+    <div class="demo-app-sidebar-section">
+      <h2>Welcome</h2>
+      <ul>
+        <li>Select dates and you will be prompted to create a new event</li>
+        <li>Drag, drop, and resize events</li>
+        <li>Click an event to delete it</li>
+      </ul>
+    </div>
+    <div class="demo-app-sidebar-section">
+      <label class="container">
+        <input
+          type="checkbox"
+          [checked]="calendarOptions.weekends"
+          (change)="handleWeekendsToggle()"
+        />
+        <div class="checkmark"></div>
+        <div class="text">Show whole week</div>
+      </label>
+    </div>
+    <div class="demo-app-sidebar-section">
+      <h2>All Events ({{ currentEvents.length }})</h2>
+      <ul>
+        <li *ngFor="let event of currentEvents">
+          <b>{{ event.startStr }}</b>
+          <i>{{ event.title }}</i>
+        </li>
+      </ul>
+    </div>
+  </div>
+  <button (click)="showContent()" class="button">
+    <span
+      ><svg
+        xmlns="http://www.w3.org/2000/svg"
+        fill="none"
+        viewBox="0 0 53 58"
+        height="58"
+        width="53"
+      >
+        <path
+          stroke-width="9"
+          stroke="currentColor"
+          d="M44.25 36.3612L17.25 51.9497C11.5833 55.2213 4.5 51.1318 4.50001 44.5885L4.50001 13.4115C4.50001 6.86824 11.5833 2.77868 17.25 6.05033L44.25 21.6388C49.9167 24.9104 49.9167 33.0896 44.25 36.3612Z"
+        ></path></svg>
+      </span>
+  </button>
+
+  <div class="demo-app-main">
+    <full-calendar
+      #calendar
+      *ngIf="calendarVisible"
+      [options]="calendarOptions"
+    >
+      <ng-template #eventContent let-arg>
+        <b>{{ arg.timeText }}</b>
+        <i>{{ arg.event.title }}</i>
+      </ng-template>
+    </full-calendar>
+  </div>
+</div>

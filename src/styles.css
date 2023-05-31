@@ -5,6 +5,7 @@ body > * {
   margin: 0;
   padding: 0;
   height: 100%;
+  font-family: Roboto, sans-serif;
 }
 
 :root {
@@ -40,4 +41,9 @@ body > * {
   --fc-highlight-color: rgba(188, 232, 241, 0.3);
   --fc-today-bg-color: rgb(185 239 240);
   --fc-now-indicator-color: red;
+   
+}
+.mat-mdc-raised-button.mat-primary {
+    --mdc-protected-button-container-color: #18484a;
+    --mdc-protected-button-label-text-color: #fff;
 }
