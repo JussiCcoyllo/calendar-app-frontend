@@ -5,6 +5,7 @@ import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service'; 
 import Validations from '../../../Validations';
 import { CurrentUserService } from 'src/app/services/current-user.service';
+import { co } from '@fullcalendar/core/internal-common';
 
 
 @Component({
@@ -41,8 +42,8 @@ export class RegisterWithPasswordComponent {
     this.userService.create(username, password).subscribe((user) => {
       this.currentUser.user = user.username;
       this.currentUser.userId = user.id;
+      this.router.navigate(["/dashboard"])
     });
-    this.router.navigate(["/dashboard"])
   }
 
   openSnackBar(message: string, action: string, duration: number = 3000) {

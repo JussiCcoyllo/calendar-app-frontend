@@ -2,7 +2,6 @@ import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
 import { TaskPost } from '../main-page/task/task-post';
-import { TaskList } from '../main-page/task/task-list';
 import { Task } from '../main-page/task/task'
 import { User } from '../main-page/user/user';
 import { UserDelete } from '../main-page/user/user-delete';
@@ -16,48 +15,50 @@ export class DatabaseConnectionService {
 
   constructor(private http: HttpClient) { }
 
-  fetchAllTasks(): Observable<TaskList> {
-    return this.http.get<TaskList>(this.link + "/api/v1/read/all", {});
+  fetchAllTasks(): Observable<Task[]> {
+    return this.http.get<Task[]>(this.link + "/api/v2/task/get/all", {});
   }
 
-  fetchInRangeTask(first: Date, last: Date): Observable<TaskList> {
-    return this.http.request<TaskList>("get", this.link + "/api/v1/read/all/range", { body: { start: first, end: last } })
+  fetchInRangeTask(start: Date, end: Date): Observable<Task[]> {
+    return this.http.request<Task[]>("get", this.link + "/api/v2/task/get/range", { body: { start: start, end: end } })
   }
 
   fetchInDayTask(first: Date): Observable<Task> {
-    return this.http.request<Task>("get", this.link + "/api/v1/read/all/day", { body: { date: first } })
+    const start = new Date(first.getDate())
+    const end = new Date(first.getDate() + 1)
+    return this.http.request<Task>("get", this.link + "/api/v2/task/get/range", { body: { start: start, end: end } })
   }
 
-  postCreateTask(date: Date, title: string, description: string): Observable<TaskPost> {
-    return this.http.request<TaskPost>("post", this.link + "/api/v1/create", { body: { dateTime: date, Title: title, Description: description } })
+  postCreateTask(date: Date, title: string, description: string, ownerId: number): Observable<TaskPost> {
+    return this.http.request<TaskPost>("post", this.link + "/api/v2/task/create", { body: { dateTime: date, title: title, description: description, ownerId: ownerId } })
   }
 
-  deleteTaskTask(id: number): Observable<TaskPost> {
-    return this.http.request<TaskPost>("delete", this.link + "/api/v1/delete", { body: { id: id } })
+  deleteTask(id: number): Observable<TaskPost> {
+    return this.http.delete<TaskPost>(this.link + "/api/v2/task/delete", { params: {id: id} })
   }
 
-  postUpdateTask(id: number, date: Date, description: string, title: string): Observable<TaskPost> {
-    return this.http.request<TaskPost>("post", this.link + "/api/v1/update", { body: { id: id, dateTime: date, Title: title, Description: description } })
+  postUpdateTask(ownerId: number, taskId: number, date: Date, description: string, title: string): Observable<TaskPost> {
+    return this.http.request<TaskPost>("post", this.link + "/api/v2/task/update", { body: { ownerId: ownerId, taskId: taskId, dateTime: date, title: title, description: description } })
   }
 
-  fetchAllTasksOfUser(id: number): Observable<TaskList>{
-    return this.http.get<TaskList>(this.link + "/api/v2/getAll", {params: {userId: id}})
+  fetchAllTasksOfUser(id: number): Observable<Task[]>{
+    return this.http.get<Task[]>(this.link + "/api/v2/task/getAll", {params: {userId: id}})
   }
 
   getUser(id: number): Observable<UserGet> {
-    return this.http.request<UserGet>("get", this.link + "/api/v2/get", { body: { id: id } })
+    return this.http.request<UserGet>("get", this.link + "/api/v2/user/get", { body: { id: id } })
   }
 
   postCreateUser(name: string, password: string): Observable<User> {
-    return this.http.request<User>("post", this.link + "/api/v2/create", { body: { name: name, password: password } })
+    return this.http.request<User>("post", this.link + "/api/v2/user/create", { body: { name: name, password: password } })
   }
 
-  deleteTaskUser(id: number): Observable<UserDelete> {
-    return this.http.request<UserDelete>("delete", this.link + "/api/v1/delete", { body: { id: id } })
+  deleteUser(id: number): Observable<UserDelete> {
+    return this.http.request<UserDelete>("delete", this.link + "/api/v2/user/delete", { body: { id: id } })
   }
 
-  postUpdateUpdate(id: number, name: string, password: string): Observable<TaskPost> {
-    return this.http.request<TaskPost>("post", this.link + "/api/v1/update", { body: { id: id, name: name, password: password } })
+  postUpdateUser(id: number, name: string, password: string): Observable<UserDelete> {
+    return this.http.request<UserDelete>("post", this.link + "/api/v2/user/update", { body: { id: id, name: name, password: password } })
   }
 
 

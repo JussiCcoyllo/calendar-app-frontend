@@ -7,7 +7,14 @@ body > * {
   height: 100%;
 }
 
+.mat-mdc-raised-button.mat-primary {
+
+  --mdc-protected-button-container-color: #18484a;
+  --mdc-protected-button-label-text-color: #fff;
+
+}
 :root {
+
   --fc-small-font-size: .85em;
   --fc-page-bg-color: #fff;
   --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);

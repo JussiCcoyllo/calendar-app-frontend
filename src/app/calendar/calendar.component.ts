@@ -59,11 +59,11 @@ export class CalendarComponent implements OnInit {
   async ngOnInit(): Promise<void> {
     const observable = this.currentUser.userId ? this.dbservice.fetchAllTasksOfUser(this.currentUser.userId) : this.dbservice.fetchAllTasks();
     observable.subscribe((l) => {
-      l.responseList.forEach((element) => {
+      l.forEach((element) => {
         if (element != null && this.calendarComponent != undefined) {
           let r = this.calendarComponent
             .getApi()
-            .addEvent({ title: element.title, start: element.dateTime });
+            .addEvent({ id: "" + element.id, title: element.title, start: element.dateTime });
           if (r != null) {
             this.currentEvents.push(r);
           }
@@ -82,6 +82,7 @@ export class CalendarComponent implements OnInit {
   }
 
   async handleDateSelect(selectInfo: DateSelectArg) {
+    console.log(this.currentUser)
     const title = prompt('Please enter a new title for your event');
 
     const calendarApi = selectInfo.view.calendar;
@@ -89,13 +90,7 @@ export class CalendarComponent implements OnInit {
     calendarApi.unselect(); // clear date selection
 
     if (title) {
-      const postR = await firstValueFrom(
-        this.dbservice.postCreateTask(
-          selectInfo.start,
-          title,
-          'a rather generic task'
-        )
-      );
+      const postR = await firstValueFrom(this.dbservice.postCreateTask(selectInfo.start, title, "generating new task", this.currentUser.userId? this.currentUser.userId : -1));
       calendarApi.addEvent({
         id: String(postR.id),
         title,
@@ -127,15 +122,16 @@ export class CalendarComponent implements OnInit {
       console.error('event changed id');
     }
     this.dbservice.postUpdateTask(
+      this.currentUser.userId ? this.currentUser.userId : -1,
       parseInt(updated.id),
       updated.start ? updated.start : new Date(),
       updated.display,
       updated.title
-    );
+    ).subscribe();
   }
 
   handleEventRemove(removeInfo: EventRemoveArg) {
     const removed = removeInfo.event;
-    this.dbservice.deleteTaskTask(parseInt(removed.id));
+    this.dbservice.deleteTask(parseInt(removed.id)).subscribe();
   }
 }
