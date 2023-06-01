@@ -8,6 +8,7 @@ import { DatabaseConnectionService } from '../data/database-connection.service';
 import { Router } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { firstValueFrom } from 'rxjs';
+import { CurrentUserService } from '../services/current-user.service';
 
 @Component({
   selector: 'app-calendar',
@@ -26,7 +27,8 @@ export class CalendarComponent implements OnInit {
   constructor(
     private changeDetector: ChangeDetectorRef,
     private dbservice: DatabaseConnectionService,
-    private router: Router
+    private router: Router,
+    private currentUser: CurrentUserService
   ) {}
 
   calendarOptions: CalendarOptions = {
@@ -55,7 +57,8 @@ export class CalendarComponent implements OnInit {
   currentEvents: EventApi[] = [];
 
   async ngOnInit(): Promise<void> {
-    this.dbservice.fetchAllTasks().subscribe((l) => {
+    const observable = this.currentUser.userId ? this.dbservice.fetchAllTasksOfUser(this.currentUser.userId) : this.dbservice.fetchAllTasks();
+    observable.subscribe((l) => {
       l.responseList.forEach((element) => {
         if (element != null && this.calendarComponent != undefined) {
           let r = this.calendarComponent

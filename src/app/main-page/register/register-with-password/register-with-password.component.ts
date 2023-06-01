@@ -1,10 +1,10 @@
-import { Component, Inject } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { Component } from '@angular/core';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { UserService } from 'src/app/services/user.service'; 
-import { tap } from 'rxjs';
 import Validations from '../../../Validations';
+import { CurrentUserService } from 'src/app/services/current-user.service';
 
 
 @Component({
@@ -17,7 +17,6 @@ export class RegisterWithPasswordComponent {
   passwordHide = true;
   confirmPasswordHide = true;
 
-
   registerForm = new FormGroup({
     username: new FormControl(null, [Validators.required]),
     password: new FormControl(null, [Validators.required]),
@@ -26,10 +25,11 @@ export class RegisterWithPasswordComponent {
     { validators: Validations.passwordsMatching }
   )
 
-  constructor(@Inject(UserService)
+  constructor(
     private router: Router,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private currentUser: CurrentUserService
   ) {}
   
   register() {
@@ -38,22 +38,12 @@ export class RegisterWithPasswordComponent {
     }
     const username = this.registerForm.get<string>("username")?.value
     const password = this.registerForm.get<string>("password")?.value
-    this.userService.create(username, password).pipe(
-      // If registration was successfull, then navigate to login route
-      tap(() => this.router.navigate(['http://localhost:4200/api/v2/user/main-page']))
-    ).subscribe();
-    
+    this.userService.create(username, password).subscribe((user) => {
+      this.currentUser.user = user.username;
+      this.currentUser.userId = user.id;
+    });
+    this.router.navigate(["/dashboard"])
   }
-
-  // public handleErrorRegister = (controlName: string, errorName: string) => {
-  //   return (
-  //     this.registerForm.get(controlName)?.touched &&
-  //     this.registerForm.get(controlName)?.errors &&
-  //     this.registerForm.get(controlName)?.hasError(errorName)
-  //   );
-  // };
-
-  
 
   openSnackBar(message: string, action: string, duration: number = 3000) {
     this.snackBar.open(message, action, {duration});

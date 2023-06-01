@@ -43,8 +43,6 @@ export function tokenGetter() {
     RegisterWithPasswordComponent, 
     CalendarComponent,
     LandingPageComponent
-  
-    
   ],
   imports: [
     BrowserModule,

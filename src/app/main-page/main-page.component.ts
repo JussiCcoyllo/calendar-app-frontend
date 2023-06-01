@@ -6,39 +6,11 @@ import { Router } from '@angular/router';
   templateUrl: './main-page.component.html',
   styleUrls: ['./main-page.component.css']
 })
-export class MainPageComponent implements OnInit {
-
-
+export class MainPageComponent {
   constructor(private router: Router) {
-  }
-  ngOnInit(): void {
-
   }
 
   onLoginRegister(): void {
-    this.router.navigateByUrl('http://localhost:4200/api/v2/user/main-page');
+    this.router.navigate(["/user", "/main-page"]);
   }
 }
-
-
-
-
-// constructor(
-//   private UserService: UserService,
-//   private Router: Router
-// ) {}
-
-// async ngOnInit(): Promise<void> {
-//   this.userService..subscribe((l) => {
-//     l.responseList.forEach((element) => {
-//       if (element != null && this.calendarComponent != undefined) {
-//         let r = this.calendarComponent
-//           .getApi()
-//           .addEvent({ title: element.title, start: element.dateTime });
-//         if (r != null) {
-//           this.currentEvents.push(r);
-//         }
-//       }
-//     });
-//   });
-// }

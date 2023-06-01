@@ -4,6 +4,7 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
+import { CurrentUserService } from 'src/app/services/current-user.service';
 import { UserService } from 'src/app/services/user.service'; 
 
 @Component({
@@ -24,7 +25,8 @@ export class LoginWithPasswordComponent {
   constructor(
     private router: Router,
     private userService: UserService,
-    private snackBar: MatSnackBar
+    private snackBar: MatSnackBar,
+    private currentUser: CurrentUserService
   ) { }
 
   login() {
@@ -33,10 +35,11 @@ export class LoginWithPasswordComponent {
     }
     const username = this.loginForm.get<string>("username")?.value
     const password = this.loginForm.get<string>("password")?.value
-    this.userService.read(username, password).pipe(
-      // If registration was successfull, then navigate to login route
-      tap(() => this.router.navigate(['../login']))
-    ).subscribe();
+    this.userService.login(username, password).subscribe((user) => {
+      this.currentUser.user = user.name;
+      this.currentUser.userId = user.id;
+    });
+    this.router.navigate(["/dashboard"])
   }
 
   

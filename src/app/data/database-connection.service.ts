@@ -40,7 +40,9 @@ export class DatabaseConnectionService {
     return this.http.request<TaskPost>("post", this.link + "/api/v1/update", { body: { id: id, dateTime: date, Title: title, Description: description } })
   }
 
-
+  fetchAllTasksOfUser(id: number): Observable<TaskList>{
+    return this.http.get<TaskList>(this.link + "/api/v2/getAll", {params: {userId: id}})
+  }
 
   getUser(id: number): Observable<UserGet> {
     return this.http.request<UserGet>("get", this.link + "/api/v2/get", { body: { id: id } })
