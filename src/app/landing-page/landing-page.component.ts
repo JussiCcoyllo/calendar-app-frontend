@@ -1,7 +1,5 @@
 import { Component } from '@angular/core';
-import { MatIconModule } from '@angular/material/icon';
-import { MatDividerModule } from '@angular/material/divider';
-import { MatButtonModule } from '@angular/material/button';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,4 +8,12 @@ import { MatButtonModule } from '@angular/material/button';
  
   
 })
-export class LandingPageComponent {}
+export class LandingPageComponent {
+
+  constructor(private router: Router){}
+
+  redirect(){
+    console.log(this.router)
+    this.router.navigate(["/main"])
+  }
+}

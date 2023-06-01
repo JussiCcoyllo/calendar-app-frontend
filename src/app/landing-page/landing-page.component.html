@@ -34,8 +34,8 @@
         </div>
 
         <div class="example-button-row">
-          <button mat-raised-button color="primary">LOGIN</button>
-          <button mat-raised-button color="primary" routerLink="/register">REGISTER</button>
+          <button mat-raised-button color="primary" routerLink="/main" routerLinkActive="active">LOGIN</button>
+          <button mat-raised-button color="primary" (click)="redirect()">REGISTER</button>
         </div>
       </div>
     </div>
