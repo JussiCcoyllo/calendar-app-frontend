@@ -21,7 +21,8 @@ import { MatTabsModule } from '@angular/material/tabs';
 import { JwtModule } from '@auth0/angular-jwt';
 import { CalendarGridComponent } from './calendar-grid/calendar-grid.component';
 import { LandingPageComponent } from './landing-page/landing-page.component';
-import { HeaderComponent } from './header/header.component';
+
+
 
 // specify the key where the token is stored in the local storage
 export const LOCALSTORAGE_TOKEN_KEY = 'angular_material_login_and_register_example';
@@ -39,7 +40,8 @@ export function tokenGetter() {
     LoginComponent, 
     LoginWithPasswordComponent, 
     RegisterComponent, 
-    RegisterWithPasswordComponent, CalendarGridComponent, LandingPageComponent, HeaderComponent,
+    RegisterWithPasswordComponent, 
+    CalendarGridComponent, LandingPageComponent
   
     
   ],
