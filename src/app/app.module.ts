@@ -18,11 +18,11 @@ import { MatCardModule } from '@angular/material/card';
 import { MatPseudoCheckboxModule } from '@angular/material/core';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { MatTabsModule } from '@angular/material/tabs';
-import { JwtModule } from '@auth0/angular-jwt';
 import { CalendarComponent } from './calendar/calendar.component';
 import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RouterModule } from '@angular/router';
+import { AppRoutingModule } from './app-routing.module';
 
 // specify the key where the token is stored in the local storage
 export const LOCALSTORAGE_TOKEN_KEY = 'angular_material_login_and_register_example';
@@ -62,21 +62,8 @@ export function tokenGetter() {
     MatSnackBarModule,
     MatTabsModule,
     CommonModule,
-    RouterModule.forRoot([
-      /* . . . */
-          ])],
-    
-   
-    // JwtModule.forRoot({
-    //   config: {
-    //     tokenGetter: tokenGetter,
-    //     allowedDomains: ['localhost:3000', 'localhost:9090']
-    //   }
-    // })
-    
-
-
- 
+    RouterModule.forRoot([]),
+    AppRoutingModule],
   providers: [],
   bootstrap: [AppComponent],
 })
