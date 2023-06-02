@@ -5,8 +5,6 @@ import { HttpClientModule } from "@angular/common/http"
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainPageComponent } from './main-page/main-page.component';
-import { LoginWithPasswordComponent } from './main-page/login/login-with-password.component';
-import { RegisterWithPasswordComponent } from './main-page/register/register-with-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -21,6 +19,8 @@ import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
+import {LoginComponent} from "./main-page/login/login.component";
+import {RegisterComponent} from "./main-page/register/register.component";
 
 // specify the key where the token is stored in the local storage
 export const LOCALSTORAGE_TOKEN_KEY = 'angular_material_login_and_register_example';
@@ -35,10 +35,10 @@ export function tokenGetter() {
   declarations: [
     AppComponent,
     MainPageComponent,
-    LoginWithPasswordComponent,
-    RegisterWithPasswordComponent,
     CalendarComponent,
-    LandingPageComponent
+    LandingPageComponent,
+    LoginComponent,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

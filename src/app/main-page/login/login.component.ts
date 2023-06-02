@@ -1,19 +1,18 @@
 import { Component } from '@angular/core';
-import { FormControl, FormGroup, NonNullableFormBuilder, Validators } from '@angular/forms';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
 import { Router } from '@angular/router';
-import { tap } from 'rxjs';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 import { UserService } from 'src/app/services/user.service';
 
 @Component({
   selector: 'app-login',
-  templateUrl: './login-with-password.component.html',
-  styleUrls: ['./login-with-password.component.css']
+  templateUrl: './login.component.html',
+  styleUrls: ['./login.component.css']
 })
 
-export class LoginWithPasswordComponent {
+export class LoginComponent {
 
   loginMessage = 'Logged In Successfully';
 
