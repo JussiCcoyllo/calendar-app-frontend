@@ -1,11 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http'
 import { Observable } from 'rxjs';
-import { TaskPost } from '../main-page/task/task-post';
-import { Task } from '../main-page/task/task'
-import { User } from '../main-page/user/user';
-import { UserDelete } from '../main-page/user/user-delete';
-import { UserGet } from '../main-page/user/user-get';
+import { TaskPost } from './task/task-post';
+import { Task } from './task/task'
+import { User } from './user/user';
+import { UserDelete } from './user/user-delete';
+import { UserGet } from './user/user-get';
 
 @Injectable({
   providedIn: 'root'

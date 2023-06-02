@@ -2,14 +2,14 @@ import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/services/user.service'; 
-import Validations from '../../../Validations';
+import { UserService } from 'src/app/services/user.service';
+import Validations from '../../Validations';
 import { CurrentUserService } from 'src/app/services/current-user.service';
 import { co } from '@fullcalendar/core/internal-common';
 
 
 @Component({
-  selector: 'app-register-with-password',
+  selector: 'app-register',
   templateUrl: './register-with-password.component.html',
   styleUrls: ['./register-with-password.component.css']
 })
@@ -32,7 +32,7 @@ export class RegisterWithPasswordComponent {
     private snackBar: MatSnackBar,
     private currentUser: CurrentUserService
   ) {}
-  
+
   register() {
     if (!this.registerForm.valid) {
       return;

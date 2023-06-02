@@ -5,10 +5,10 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
 import { tap } from 'rxjs';
 import { CurrentUserService } from 'src/app/services/current-user.service';
-import { UserService } from 'src/app/services/user.service'; 
+import { UserService } from 'src/app/services/user.service';
 
 @Component({
-  selector: 'app-login-with-password',
+  selector: 'app-login',
   templateUrl: './login-with-password.component.html',
   styleUrls: ['./login-with-password.component.css']
 })
@@ -42,7 +42,7 @@ export class LoginWithPasswordComponent {
     this.router.navigate(["/dashboard"])
   }
 
-  
+
   openSnackBar(message: string, action: string, duration: number = 3000) {
     this.snackBar.open(message, action, {duration});
   }

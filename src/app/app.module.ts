@@ -5,10 +5,8 @@ import { HttpClientModule } from "@angular/common/http"
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainPageComponent } from './main-page/main-page.component';
-import { LoginComponent } from './main-page/login/login.component';
-import { LoginWithPasswordComponent } from './main-page/login/login-with-password/login-with-password.component';
-import { RegisterComponent } from './main-page/register/register.component';
-import { RegisterWithPasswordComponent } from './main-page/register/register-with-password/register-with-password.component';
+import { LoginWithPasswordComponent } from './main-page/login/login-with-password.component';
+import { RegisterWithPasswordComponent } from './main-page/register/register-with-password.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -35,12 +33,10 @@ export function tokenGetter() {
 @NgModule({
   schemas: [CUSTOM_ELEMENTS_SCHEMA],
   declarations: [
-    AppComponent, 
-    MainPageComponent, 
-    LoginComponent, 
-    LoginWithPasswordComponent, 
-    RegisterComponent, 
-    RegisterWithPasswordComponent, 
+    AppComponent,
+    MainPageComponent,
+    LoginWithPasswordComponent,
+    RegisterWithPasswordComponent,
     CalendarComponent,
     LandingPageComponent
   ],

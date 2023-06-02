@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { User } from '../main-page/user/user';
-import { UserGet } from '../main-page/user/user-get';
-import { UserDelete } from '../main-page/user/user-delete';
+import { User } from '../data/user/user';
+import { UserGet } from '../data/user/user-get';
+import { UserDelete } from '../data/user/user-delete';
 
 // export const loginResponse: LoginResponse = {
 //   // fakeAccessToken.....should all come from real backend
@@ -23,7 +23,7 @@ import { UserDelete } from '../main-page/user/user-delete';
 })
 export class UserService {
   link = 'http://localhost:9090';
-  
+
 
   constructor(private http: HttpClient) {}
 
@@ -42,7 +42,7 @@ export class UserService {
   create(username: string, password: string): Observable<User> {
     const url = `${this.link}/api/v2/user/create`;
     const body = { name:username, password };
-    return this.http.post<User>(url, body); 
+    return this.http.post<User>(url, body);
   }
 
   read_all(): Observable<User[]> {
