@@ -19,7 +19,7 @@ export class RegisterComponent {
 
   registerForm = new FormGroup({
     username: new FormControl(null, [Validators.required]),
-    password: new FormControl(null, [Validators.required]),
+    password: new FormControl(null, [Validators.required, Validators.minLength(6)]),
     passwordConfirm: new FormControl(null, [Validators.required])
   },
     { validators: Validations.passwordsMatching }
