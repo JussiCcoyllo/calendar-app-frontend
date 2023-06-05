@@ -1,0 +1,74 @@
+mat-card {
+  width: 30%;
+  min-width: 400px;
+  margin: 10% auto;
+  border-radius: 10px;
+}
+mat-form-field,
+mat-checkbox {
+  width: 80%;
+  display: block;
+  margin: 10px auto;
+}
+mat-card-content {
+  margin-top: 20px;
+}
+
+.example-stretched-tabs {
+  max-width: 800px;
+  min-width: 300px;
+}
+
+.login-button {
+  margin-top: 20px;
+  display: block;
+  width: 80%;
+  margin: 20px auto;
+  
+}
+
+.scale {
+  transform: scale(1.6);
+}
+
+img{
+        width: 11.2em;
+    height: 100%;
+}
+
+.flex-container {
+  display: flex;
+  flex-direction: column;
+  flex-wrap: nowrap;
+  justify-content: center;
+  align-items: center;
+  align-content: normal;
+}
+
+.mat-ripple mat-mdc-button-ripple{
+    background: red;
+}
+
+.flex-items:nth-child(1) {
+  display: block;
+  flex-grow: 0;
+  flex-shrink: 1;
+  flex-basis: auto;
+  align-self: auto;
+  order: 0;
+}
+
+.bg-img {
+  /* The image used */
+  background-image: url("../../assets/backgroundCalendar.png");
+
+  min-height: 100%;
+
+  /* Center and scale the image nicely */
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+
+  /* Needed to position the navbar */
+  position: relative;
+}
