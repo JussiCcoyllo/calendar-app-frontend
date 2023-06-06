@@ -56,7 +56,7 @@ export class CalendarComponent implements OnInit {
     eventAdd: this.handleAddEvent.bind(this)
     */
     eventChange: this.handleEventChange.bind(this),
-    eventRemove: this.handleEventRemove.bind(this),
+    // eventRemove: this.handleEventRemove.bind(this),
   };
   currentEvents: EventApi[] = [];
 
@@ -96,7 +96,7 @@ export class CalendarComponent implements OnInit {
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    this.dialog.open(DeleteTaskDialogComponent, clickInfo.event)
+    this.dialog.open(DeleteTaskDialogComponent, {data: clickInfo.event})
   }
 
   handleEvents(events: EventApi[]) {
@@ -116,10 +116,5 @@ export class CalendarComponent implements OnInit {
       updated.display,
       updated.title
     ).subscribe();
-  }
-
-  handleEventRemove(removeInfo: EventRemoveArg) {
-    const removed = removeInfo.event;
-    this.dbservice.deleteTask(parseInt(removed.id)).subscribe();
   }
 }
