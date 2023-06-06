@@ -4,7 +4,7 @@ import { FullCalendarModule } from '@fullcalendar/angular';
 import { HttpClientModule } from "@angular/common/http"
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MainPageComponent } from './main-page/main-page.component';
+import { MainPageComponent } from './signup-page/signup-page.component';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
@@ -19,8 +19,11 @@ import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import {LoginComponent} from "./main-page/login/login.component";
-import {RegisterComponent} from "./main-page/register/register.component";
+import {LoginComponent} from "./signup-page/login/login.component";
+import {RegisterComponent} from "./signup-page/register/register.component";
+import { MatDialogModule } from '@angular/material/dialog';
+import { TaskCreateDialogComponent } from './calendar/task-create-dialog/task-create-dialog.component';
+import { DeleteTaskDialogComponent } from './calendar/delete-task-dialog/delete-task-dialog.component';
 
 // specify the key where the token is stored in the local storage
 export const LOCALSTORAGE_TOKEN_KEY = 'angular_material_login_and_register_example';
@@ -38,7 +41,9 @@ export function tokenGetter() {
     CalendarComponent,
     LandingPageComponent,
     LoginComponent,
-    RegisterComponent
+    RegisterComponent,
+    TaskCreateDialogComponent,
+    DeleteTaskDialogComponent
   ],
   imports: [
     BrowserModule,
@@ -47,6 +52,7 @@ export function tokenGetter() {
     BrowserAnimationsModule,
     FormsModule,
     MatButtonModule,
+    MatDialogModule,
     MatInputModule,
     MatIconModule,
     MatToolbarModule,
@@ -57,7 +63,8 @@ export function tokenGetter() {
     MatTabsModule,
     CommonModule,
     RouterModule.forRoot([]),
-    AppRoutingModule],
+    AppRoutingModule,
+  ],
   providers: [],
   bootstrap: [AppComponent],
 })

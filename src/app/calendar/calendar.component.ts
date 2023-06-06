@@ -9,6 +9,9 @@ import { Router } from '@angular/router';
 import { FullCalendarComponent } from '@fullcalendar/angular';
 import { firstValueFrom } from 'rxjs';
 import { CurrentUserService } from '../services/current-user.service';
+import { MatDialog } from '@angular/material/dialog';
+import { TaskCreateDialogComponent } from './task-create-dialog/task-create-dialog.component';
+import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
 
 @Component({
   selector: 'app-calendar',
@@ -28,7 +31,8 @@ export class CalendarComponent implements OnInit {
     private changeDetector: ChangeDetectorRef,
     private dbservice: DatabaseConnectionService,
     private router: Router,
-    private currentUser: CurrentUserService
+    private currentUser: CurrentUserService,
+    private dialog: MatDialog
   ) {}
 
   calendarOptions: CalendarOptions = {
@@ -63,7 +67,7 @@ export class CalendarComponent implements OnInit {
         if (element != null && this.calendarComponent != undefined) {
           let r = this.calendarComponent
             .getApi()
-            .addEvent({ id: "" + element.id, title: element.title, start: element.dateTime });
+            .addEvent({ id: "" + element.id, title: element.title, start: element.dateTime, description: element.description });
           if (r != null) {
             this.currentEvents.push(r);
           }
@@ -82,33 +86,17 @@ export class CalendarComponent implements OnInit {
   }
 
   async handleDateSelect(selectInfo: DateSelectArg) {
-    console.log(this.currentUser)
-    const title = prompt('Please enter a new title for your event');
-
-    const calendarApi = selectInfo.view.calendar;
-
-    calendarApi.unselect(); // clear date selection
-
-    if (title) {
-      const postR = await firstValueFrom(this.dbservice.postCreateTask(selectInfo.start, title, "generating new task", this.currentUser.userId? this.currentUser.userId : -1));
-      calendarApi.addEvent({
-        id: String(postR.id),
-        title,
-        start: selectInfo.startStr,
-        end: selectInfo.endStr,
-        allDay: selectInfo.allDay,
-      });
-    }
+    const dialogRef = this.dialog.open(TaskCreateDialogComponent, {
+      data: {
+        date: selectInfo.start, 
+        calendar: selectInfo.view.calendar
+      }
+    });
+    dialogRef.afterClosed().subscribe()
   }
 
   handleEventClick(clickInfo: EventClickArg) {
-    if (
-      confirm(
-        `Are you sure you want to delete the event '${clickInfo.event.title}'`
-      )
-    ) {
-      clickInfo.event.remove();
-    }
+    this.dialog.open(DeleteTaskDialogComponent, clickInfo.event)
   }
 
   handleEvents(events: EventApi[]) {
