@@ -61,6 +61,10 @@ export class CalendarComponent implements OnInit {
   currentEvents: EventApi[] = [];
 
   async ngOnInit(): Promise<void> {
+    if(!this.currentUser.loggedIn()){
+      this.router.navigate(['/login'])
+      return
+    }
     const observable = this.currentUser.userId ? this.dbservice.fetchAllTasksOfUser(this.currentUser.userId) : this.dbservice.fetchAllTasks();
     observable.subscribe((l) => {
       l.forEach((element) => {
