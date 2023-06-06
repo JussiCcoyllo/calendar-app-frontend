@@ -43,7 +43,7 @@ export class LoginComponent {
         this.snackBar.open(this.loginMessage, 'Dismiss', {duration: 3000});
       },
       (err: HttpErrorResponse) => {
-        this.snackBar.open(`Failed to log in ErrorStatus(${err.status})`, 'Dismiss', {duration: 3000})
+        this.snackBar.open(`Failed to log in ErrorStatus(${err.statusText})`, 'Dismiss', {duration: 3000})
       }
     );
   }
