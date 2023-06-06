@@ -12,9 +12,11 @@ import { CalendarApi } from '@fullcalendar/core';
   styleUrls: ['./task-create-dialog.component.css']
 })
 export class TaskCreateDialogComponent {
+  public selectedTime: string | undefined;
+
   form = new FormGroup({
     title: new FormControl(null, [Validators.required, Validators.minLength(2)]),
-    description: new FormControl(null, []),
+    description: new FormControl("", []),
     startTime: new FormControl(null, [Validators.required]),
     endTime: new FormControl(null, [])
   })
@@ -31,7 +33,10 @@ export class TaskCreateDialogComponent {
     const title: string = this.form.get<string>('title')?.value
     const description: string = this.form.get<string>('description')?.value
     const id = this.user.userId ? this.user.userId : -1;
-    this.dbservice.postCreateTask(this.data.date, title, description, id).subscribe(r => {
+    let start = new Date(this.data.date)
+    start.setHours(this.selectedTime ? parseInt(this.selectedTime.split(':')[0]) : 12)
+    start.setMinutes(this.selectedTime ? parseInt(this.selectedTime.split(':')[1]) : 0)
+    this.dbservice.postCreateTask(start, title, description, id).subscribe(r => {
         this.data.calendar.addEvent({
           id: String(r),
           title: title,
