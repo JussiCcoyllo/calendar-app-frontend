@@ -28,8 +28,7 @@
         *ngIf="this.registerForm.get('passwordConfirm')?.dirty && this.registerForm.hasError('passwordsNotMatching')">
         Passwords are not matching!</mat-error>
 
-      <button mat-flat-button color="accent" class="login-button" [disabled]="!registerForm.valid"
-        (click)="openSnackBar(registerMessage, 'Dismiss')" >
+      <button mat-flat-button color="accent" class="login-button" [disabled]="!registerForm.valid">
         REGISTER
       </button>
     </form>

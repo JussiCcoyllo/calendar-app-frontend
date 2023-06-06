@@ -3,24 +3,24 @@
     <mat-form-field>
       <input type="text" matInput placeholder="Username" formControlName="username">
       <mat-icon matSuffix>person</mat-icon>
-      <mat-error
-        *ngIf="this.loginForm.get('username')?.touched && this.loginForm.get('username')?.hasError('required')">
-        Username is required</mat-error>
+      <mat-error *ngIf="this.loginForm.get('username')?.touched && this.loginForm.get('username')?.hasError('required')">
+        Username is required
+      </mat-error>
     </mat-form-field>
 
     <mat-form-field>
       <input type="password" matInput placeholder="Password" formControlName="password">
       <mat-icon matSuffix>lock</mat-icon>
-      <mat-error
-        *ngIf="this.loginForm.get('password')?.touched && this.loginForm.get('password')?.hasError('required')">
-        Password min 6 digits required</mat-error>
+      <mat-error *ngIf="this.loginForm.get('password')?.touched && this.loginForm.get('password')?.hasError('required')">
+        Password of min 6 digits required
+      </mat-error>
     </mat-form-field>
 
     <mat-error *ngIf="this.loginForm.get('passwordConfirm')?.dirty && this.loginForm.hasError('passwordsNotMatching')">
-      Passwords are not matching!</mat-error>
+      Passwords are not matching!
+    </mat-error>
 
-      <button mat-flat-button color="accent" class="login-button" [disabled]="!loginForm.valid"
-      (click)="openSnackBar(loginMessage, 'Dismiss')">
+    <button mat-flat-button color="accent" class="login-button" [disabled]="!loginForm.valid">
       LOGIN
     </button>
   </form>

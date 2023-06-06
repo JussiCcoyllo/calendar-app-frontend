@@ -1,3 +1,4 @@
+import { HttpErrorResponse } from '@angular/common/http';
 import { Component } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
@@ -34,16 +35,16 @@ export class LoginComponent {
     }
     const username = this.loginForm.get<string>("username")?.value
     const password = this.loginForm.get<string>("password")?.value
-    this.userService.login(username, password).subscribe((user) => {
-      this.currentUser.user = user.name;
-      this.currentUser.userId = user.id;
-    });
-    this.router.navigate(["/dashboard"])
-  }
-
-
-  openSnackBar(message: string, action: string, duration: number = 3000) {
-    this.snackBar.open(message, action, {duration});
+    this.userService.login(username, password).subscribe(
+      res => {
+        this.currentUser.user = res.name;
+        this.currentUser.userId = res.id;
+        this.router.navigate(["/dashboard"])
+        this.snackBar.open(this.loginMessage, 'Dismiss', {duration: 3000});
+      },
+      (err: HttpErrorResponse) => {
+        this.snackBar.open(`Failed to log in ErrorStatus(${err.status})`, 'Dismiss', {duration: 3000})
+      }
+    );
   }
 }
-
