@@ -5,6 +5,8 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { CurrentUserService } from '../../services/current-user.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { CalendarApi } from '@fullcalendar/core';
+import {TaskPost} from 'src/app/data/task/task-post';
+import {HttpErrorResponse} from '@angular/common/http';
 
 @Component({
   selector: 'app-task-create-dialog',
@@ -36,15 +38,23 @@ export class TaskCreateDialogComponent {
     let start = new Date(this.data.date)
     start.setHours(this.selectedTime ? parseInt(this.selectedTime.split(':')[0]) : 12)
     start.setMinutes(this.selectedTime ? parseInt(this.selectedTime.split(':')[1]) : 0)
-    this.dbservice.postCreateTask(start, title, description, id).subscribe(r => {
+    this.dbservice.postCreateTask(start, title, description, id).subscribe(
+      (r: TaskPost) => {
         this.data.calendar.addEvent({
           id: String(r),
           title: title,
-          start: this.data.date,
+          start: start,
           description: description
         })
-        this.snackBar.open("Created task", "Undo", {duration: 300})
-        setTimeout(() => this.dialogRef.close())
+        this.snackBar
+          .open("Created task", "Dismiss", {duration: 300})
+          .afterDismissed()
+          .subscribe(() => this.dialogRef.close())
+      },
+      (err: HttpErrorResponse) => {
+        this.snackBar.open(`Failed to create task ErrorStatus(${err.statusText})`, 'Dismiss', {duration: 3000})
+          .afterDismissed()
+          .subscribe(() => this.dialogRef.close())
       }
     );
   }
