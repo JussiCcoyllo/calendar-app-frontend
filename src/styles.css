@@ -51,3 +51,7 @@ body > * {
   --mdc-filled-button-container-color: #18484a;
   --mdc-filled-button-label-text-color: #fff;
 }
+
+.mat-mdc-dialog-container .mdc-dialog__title {
+    color: #18484a!important;
+}

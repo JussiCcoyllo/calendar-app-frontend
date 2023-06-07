@@ -48,7 +48,18 @@
   </button>
 
   <div class="demo-app-main">
-    <full-calendar
+    <div class="flex-container">
+      <button mat-icon-button>
+        <mat-icon
+          class="flex-items"
+          aria-hidden="false"
+          aria-label="logout icon"
+          fontIcon="logout"
+          [ariaSetSize]="50"
+          color="warn"></mat-icon>
+      </button>
+    </div>
+    <full-calendar class="fullcalendar"
       #calendar
       *ngIf="calendarVisible"
       [options]="calendarOptions">
