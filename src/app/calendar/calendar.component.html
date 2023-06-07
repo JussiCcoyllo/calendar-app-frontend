@@ -23,7 +23,8 @@
         <h2>All Events ({{ currentEvents.length }})</h2>
         <ul>
           <li *ngFor="let event of currentEvents">
-            <b>{{ event.startStr }}</b>
+            <b>{{ event.start?.toDateString() }}</b><br>
+            <b>{{ event.start?.toLocaleTimeString() }}</b><br>
             <i>{{ event.title }}</i>
           </li>
         </ul>
@@ -45,7 +46,7 @@
           ></path></svg>
         </span>
     </button>
-  
+
     <div class="demo-app-main">
       <full-calendar
         #calendar
@@ -59,4 +60,4 @@
       </full-calendar>
     </div>
   </div>
-  
+
