@@ -1,3 +1,3 @@
 export interface TaskPost {
-    id: number
+  id: number;
 }

@@ -4,13 +4,12 @@ import { Router } from '@angular/router';
 @Component({
   selector: 'app-main-page',
   templateUrl: './signup-page.component.html',
-  styleUrls: ['./signup-page.component.css']
+  styleUrls: ['./signup-page.component.css'],
 })
 export class MainPageComponent {
-  constructor(private router: Router) {
-  }
+  constructor(private router: Router) {}
 
   onLoginRegister(): void {
-    this.router.navigate(["/user", "/main-page"]);
+    this.router.navigate(['/user', '/main-page']);
   }
 }

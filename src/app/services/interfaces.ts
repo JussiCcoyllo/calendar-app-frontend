@@ -1,4 +1,3 @@
-
 /*
 Interface for the Refresh Token (can look different, based on your backend api)
 */

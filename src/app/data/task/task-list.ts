@@ -1,5 +1,5 @@
-import { Task } from "./task";
+import { Task } from './task';
 
 export interface TaskList {
-    responseList: Task[]
+  responseList: Task[];
 }

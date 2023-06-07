@@ -1,7 +1,5 @@
-
-body{
+body {
   font-family: Monaco, sans-serif;
-  
 }
 .navbar {
   width: 100%;
@@ -36,7 +34,7 @@ body{
 
 .bg-img {
   /* The image used */
-  background-image: url("../../assets/backgroundCalendar.png");
+  background-image: url('../../assets/backgroundCalendar.png');
 
   min-height: 100%;
 
@@ -51,12 +49,12 @@ body{
 
 /* Position the navbar container inside the image */
 .container {
-  font-family: "Oxygen", Arial, Helvetica, sans-serif;
-    font-size: 20px;
+  font-family: 'Oxygen', Arial, Helvetica, sans-serif;
+  font-size: 20px;
 
   position: absolute;
-  margin-top:3%;
-  margin-left:8%;
+  margin-top: 3%;
+  margin-left: 8%;
   width: auto;
 }
 
@@ -103,11 +101,11 @@ body{
   background: #18484a;
   color: #fff;
 }
-.mat-mdc-raised-button:not(:disabled){
-  border-radius:25px;
+.mat-mdc-raised-button:not(:disabled) {
+  border-radius: 25px;
 }
 .content-center {
-   display: flex;
+  display: flex;
   flex-direction: column;
   flex-wrap: nowrap;
   justify-content: normal;
@@ -115,23 +113,20 @@ body{
   align-content: normal;
 }
 .content-center div {
-   width: 92%;
-    height: 100px;
-    margin: 25px;
+  width: 92%;
+  height: 100px;
+  margin: 25px;
 }
- 
 
- h1 {
-    font-size: 31px;
-    font-weight: 400;
-    line-height: 32px;
-    font-family: Roboto, sans-serif;
-    letter-spacing: normal;
-    margin: 0 0 16px;
-    color: #64bdc1;
+h1 {
+  font-size: 31px;
+  font-weight: 400;
+  line-height: 32px;
+  font-family: Roboto, sans-serif;
+  letter-spacing: normal;
+  margin: 0 0 16px;
+  color: #64bdc1;
 }
 .example-button-row {
-      display: grid;
+  display: grid;
 }
-
- 

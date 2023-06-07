@@ -1,7 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { FullCalendarModule } from '@fullcalendar/angular';
-import { HttpClientModule } from "@angular/common/http"
+import { HttpClientModule } from '@angular/common/http';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { MainPageComponent } from './signup-page/signup-page.component';
@@ -19,14 +19,15 @@ import { CommonModule } from '@angular/common';
 import { LandingPageComponent } from './landing-page/landing-page.component';
 import { RouterModule } from '@angular/router';
 import { AppRoutingModule } from './app-routing.module';
-import { LoginComponent} from "./signup-page/login/login.component";
-import { RegisterComponent } from "./signup-page/register/register.component";
+import { LoginComponent } from './signup-page/login/login.component';
+import { RegisterComponent } from './signup-page/register/register.component';
 import { MatDialogModule } from '@angular/material/dialog';
 import { TaskCreateDialogComponent } from './calendar/task-create-dialog/task-create-dialog.component';
 import { DeleteTaskDialogComponent } from './calendar/delete-task-dialog/delete-task-dialog.component';
 
 // specify the key where the token is stored in the local storage
-export const LOCALSTORAGE_TOKEN_KEY = 'angular_material_login_and_register_example';
+export const LOCALSTORAGE_TOKEN_KEY =
+  'angular_material_login_and_register_example';
 
 // specify tokenGetter for the angular jwt package
 export function tokenGetter() {
@@ -43,7 +44,7 @@ export function tokenGetter() {
     LoginComponent,
     RegisterComponent,
     TaskCreateDialogComponent,
-    DeleteTaskDialogComponent
+    DeleteTaskDialogComponent,
   ],
   imports: [
     BrowserModule,

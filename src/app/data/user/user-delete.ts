@@ -1,3 +1,3 @@
 export interface UserDelete {
-    id: number;
+  id: number;
 }

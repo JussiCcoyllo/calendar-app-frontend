@@ -7,11 +7,10 @@ import { Router } from '@angular/router';
   styleUrls: ['./landing-page.component.css'],
 })
 export class LandingPageComponent {
+  constructor(private router: Router) {}
 
-  constructor(private router: Router){}
-
-  redirect(){
-    console.log(this.router)
-    this.router.navigate(["/main"])
+  redirect() {
+    console.log(this.router);
+    this.router.navigate(['/main']);
   }
 }

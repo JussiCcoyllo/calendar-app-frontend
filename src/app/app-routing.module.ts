@@ -8,18 +8,12 @@ const appRoutes: Routes = [
   { path: 'dashboard', component: CalendarComponent },
   { path: 'login', component: MainPageComponent },
   { path: 'register', component: MainPageComponent },
-  { path: '**',   redirectTo: '/landing-page', pathMatch: 'full' },
-  { path: 'landing-page', component: LandingPageComponent }
+  { path: '**', redirectTo: '/landing-page', pathMatch: 'full' },
+  { path: 'landing-page', component: LandingPageComponent },
 ];
 
 @NgModule({
-  imports: [
-    RouterModule.forRoot(
-      appRoutes
-    )
-  ],
-  exports: [
-    RouterModule
-  ]
+  imports: [RouterModule.forRoot(appRoutes)],
+  exports: [RouterModule],
 })
-export class AppRoutingModule { }
+export class AppRoutingModule {}

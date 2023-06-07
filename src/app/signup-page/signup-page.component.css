@@ -24,16 +24,15 @@ mat-card-content {
   display: block;
   width: 80%;
   margin: 20px auto;
-  
 }
 
 .scale {
   transform: scale(1.6);
 }
 
-img{
-        width: 11.2em;
-    height: 100%;
+img {
+  width: 11.2em;
+  height: 100%;
 }
 
 .flex-container {
@@ -45,8 +44,8 @@ img{
   align-content: normal;
 }
 
-.mat-ripple mat-mdc-button-ripple{
-    background: red;
+.mat-ripple mat-mdc-button-ripple {
+  background: red;
 }
 
 .flex-items:nth-child(1) {
@@ -60,7 +59,7 @@ img{
 
 .bg-img {
   /* The image used */
-  background-image: url("../../assets/backgroundCalendar.png");
+  background-image: url('../../assets/backgroundCalendar.png');
 
   min-height: 100%;
 

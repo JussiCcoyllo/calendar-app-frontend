@@ -1,4 +1,3 @@
-
 # FullCalendar Angular 15 Example Project
 
 This is a fully-buildable example project for FullCalendar and Angular. It was initially created with the `ng new` command of the [Angular CLI](https://angular.io/cli). For a complete walkthrough, read the [FullCalendar Angular Docs &raquo;](https://fullcalendar.io/docs/angular)
@@ -35,5 +34,5 @@ To get this example working within a monorepo, [this hack](https://stackoverflow
 To get this example working within [StackBlitz](https://stackblitz.com/), the following hack was added to `src/main.ts`. It can be safely removed in other environments.
 
 ```ts
-import 'zone.js' // hack for StackBlitz
+import 'zone.js'; // hack for StackBlitz
 ```

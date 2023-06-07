@@ -9,14 +9,11 @@ body > * {
 }
 
 .mat-mdc-raised-button.mat-primary {
-
   --mdc-protected-button-container-color: #18484a;
   --mdc-protected-button-label-text-color: #fff;
-
 }
 :root {
-
-  --fc-small-font-size: .85em;
+  --fc-small-font-size: 0.85em;
   --fc-page-bg-color: #fff;
   --fc-neutral-bg-color: rgba(208, 208, 208, 0.3);
   --fc-neutral-text-color: #808080;
@@ -24,7 +21,7 @@ body > * {
 
   --fc-button-text-color: #fff;
   --fc-button-bg-color: #1f676a;
-  --fc-button-border-color: #2C3E50;
+  --fc-button-border-color: #2c3e50;
   --fc-button-hover-bg-color: #1e2b37;
   --fc-button-hover-border-color: #1a252f;
   --fc-button-active-bg-color: #1a252f;
@@ -51,10 +48,6 @@ body > * {
 }
 
 .mat-mdc-unelevated-button.mat-accent {
-    --mdc-filled-button-container-color: #18484a;
-    --mdc-filled-button-label-text-color: #fff;
-}
-
-.mat-mdc-dialog-container .mdc-dialog__title {
-    color: rgb(26 74 76)!important;
+  --mdc-filled-button-container-color: #18484a;
+  --mdc-filled-button-label-text-color: #fff;
 }
