@@ -1,30 +1,58 @@
 <h2 mat-dialog-title>Hi! What's new?</h2>
 <div mat-dialog-content>
-    <form class="flex-container"[formGroup]="form">
-        <div class="flex-items">
-            <mat-form-field>
-                <mat-label>Title</mat-label>
-                <input matInput type="text" placeholder="Title" formControlName="title">
-            </mat-form-field>
-        </div>
-        <div class="flex-items">
-            <mat-form-field>
-                <mat-label>Description</mat-label>
-                <input matInput type="text" placeholder="Description" formControlName="description">
-            </mat-form-field>
-        </div>
-        <div class="flex-items">
-            <mat-form-field>
-                <mat-label>Time?</mat-label>
-                <input matInput type="time" formControlName="startTime" [(ngModel)]="selectedTime">
-            </mat-form-field>
-        </div>
-    </form>
-</div>
-<div mat-dialog-actions>
-    <div class="example-button-row">
-        <button mat-raised-button  color="primary" (click)="this.dialogRef.close()">Not sure</button>
-        <button mat-raised-button  color="primary" (click)="submit()" cdkFocusInitial [disabled]="!form.valid">Yes! I confirm</button>
+  <form class="flex-container" [formGroup]="form">
+    <div class="flex-items">
+      <mat-form-field>
+        <mat-label>Title</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Title"
+          formControlName="title"
+        />
+      </mat-form-field>
     </div>
+    <div class="flex-items">
+      <mat-form-field>
+        <mat-label>Description</mat-label>
+        <input
+          matInput
+          type="text"
+          placeholder="Description"
+          formControlName="description"
+        />
+      </mat-form-field>
+    </div>
+    <div class="flex-items">
+      <mat-form-field>
+        <mat-label>Time?</mat-label>
+        <input
+          matInput
+          type="time"
+          formControlName="startTime"
+          [(ngModel)]="selectedTime"
+        />
+      </mat-form-field>
+    </div>
+    <div mat-dialog-actions class="flex-items">
+      <div class="example-button-row">
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="this.dialogRef.close()"
+        >
+          Not sure
+        </button>
+        <button
+          mat-raised-button
+          color="primary"
+          (click)="submit()"
+          cdkFocusInitial
+          [disabled]="!form.valid"
+        >
+          Yes! I confirm
+        </button>
+      </div>
+    </div>
+  </form>
 </div>
- 
