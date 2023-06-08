@@ -17,6 +17,7 @@ import { CurrentUserService } from '../services/current-user.service';
 import { MatDialog } from '@angular/material/dialog';
 import { TaskCreateDialogComponent } from './task-create-dialog/task-create-dialog.component';
 import { DeleteTaskDialogComponent } from './delete-task-dialog/delete-task-dialog.component';
+import {MatSnackBar} from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-calendar',
@@ -36,7 +37,8 @@ export class CalendarComponent implements OnInit {
     private dbservice: DatabaseConnectionService,
     private router: Router,
     private currentUser: CurrentUserService,
-    private dialog: MatDialog
+    private dialog: MatDialog,
+    private snackBar: MatSnackBar
   ) {}
 
   calendarOptions: CalendarOptions = {
@@ -139,5 +141,6 @@ export class CalendarComponent implements OnInit {
     this.currentUser.user = undefined
     this.currentUser.userId = undefined
     this.router.navigate(['/login'])
+    this.snackBar.open('Logged out', 'Dismiss', {duration: 3000})
   }
 }
