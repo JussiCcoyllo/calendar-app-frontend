@@ -134,4 +134,10 @@ export class CalendarComponent implements OnInit {
       )
       .subscribe();
   }
+
+  logout() {
+    this.currentUser.user = undefined
+    this.currentUser.userId = undefined
+    this.router.navigate(['/login'])
+  }
 }
