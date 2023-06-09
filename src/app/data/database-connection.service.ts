@@ -85,8 +85,8 @@ export class DatabaseConnectionService {
     });
   }
 
-  postCreateUser(name: string, password: string): Observable<User> {
-    return this.http.request<User>('post', this.link + '/user/create', {
+  postCreateUser(name: string, password: string): Observable<UserDelete> {
+    return this.http.request<UserDelete>('post', this.link + '/user/create', {
       body: { name: name, password: password },
     });
   }
