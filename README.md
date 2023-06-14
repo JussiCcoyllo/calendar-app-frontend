@@ -1,38 +1,44 @@
-# FullCalendar Angular 15 Example Project
+# MyLife
 
-This is a fully-buildable example project for FullCalendar and Angular. It was initially created with the `ng new` command of the [Angular CLI](https://angular.io/cli). For a complete walkthrough, read the [FullCalendar Angular Docs &raquo;](https://fullcalendar.io/docs/angular)
+This project is based on a calendar. 
+This application helps you to plan and realize all possible requests you encounter in everyday life. Our target audience is divided into 2 groups:
+1) business version, where our functions are used for booking business trips  and planning and announcing your colleagues.
+2) user version for general use, where the calendar and booking service is implemented. 
+We really help you find work-life balance.
+We are convinced that our app will be as useful for the standard user as for the CEO of a large company.
 
-## Installation
+## Getting Started
 
-```bash
-git clone https://github.com/fullcalendar/fullcalendar-examples.git
-cd fullcalendar-examples/angular15
-npm install
-```
+This is a INTEC project created specially for the Ambassador Day. We've presented this project to 9 IT-companies.
 
-## Build commands
+## Visual
 
-```bash
-npm run build # build to a directory
-npm run start # continously build, as a server
-```
+![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/d77fbae1-ac2a-4fa2-9c07-b3b2ba2511c1)
+![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/a1c1c8f3-7fe6-4c78-bdfe-8c7f7f86c6a9)
+![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/9cf59844-ce22-4428-8a7b-54c04e3e17d9)
+ 
+## Built With
+- Spring Boot
+- Angular
+- MySQL database
+- Visual Code Studio
+- Intellij
+ 
+To run the app you need to open the backend side:
+ https://github.com/Mano-lemm/calendar_intec
 
-After running the `npm run start` command, you will be given a localhost URL that can be visited in a browser.
+## Versioning
+We use Git for versioning.  
 
-## Monorepo Quirk
+## Team
 
-To get this example working within a monorepo, [this hack](https://stackoverflow.com/a/61801741/96342) was added to `tsconfig.app.json`. It can be safely removed if you're not using a monorepo.
+|  Jussi Ccoyllo | Aleksey Li | Mano Lemmens | Halil Haykul |
+| :---: |:---:| :---:|  :---:|
+| ![Jussi](https://avatars1.githubusercontent.com/u/46483286?s=200&v=4)|  |  |  |
+| <a href="https://github.com/JussiCcoyllo" target="_blank">`github.com/JussiCcoyllo`</a> | <a href="https://github.com/alekseylee" target="_blank">`github.com/alekseylee`</a> | <a href="https://github.com/Mano-lemm" target="_blank">`github.com/Mano-lemm`</a>  | <a href="https://github.com/haykul" target="_blank">`github.com/haykul`</a> |
 
-```json
-"paths": {
-  "@angular/*": ["./node_modules/@angular/*"]
-},
-```
+---
 
-## StackBlitz Quirk
+## Acknowledgments
 
-To get this example working within [StackBlitz](https://stackblitz.com/), the following hack was added to `src/main.ts`. It can be safely removed in other environments.
-
-```ts
-import 'zone.js'; // hack for StackBlitz
-```
+Team INTEC
