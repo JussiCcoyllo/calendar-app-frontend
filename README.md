@@ -16,7 +16,11 @@ This is a INTEC project created specially for the Ambassador Day. We've presente
 ![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/d77fbae1-ac2a-4fa2-9c07-b3b2ba2511c1)
 ![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/a1c1c8f3-7fe6-4c78-bdfe-8c7f7f86c6a9)
 ![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/9cf59844-ce22-4428-8a7b-54c04e3e17d9)
- 
+
+We've worked with the Agile methodology using Trello:
+
+![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/64d22705-e658-4c31-8616-36ff81925bdc)
+
 ## Built With
 - Spring Boot
 - Angular
