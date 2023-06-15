@@ -38,7 +38,8 @@ We use Git for versioning.
 
 |  Jussi Ccoyllo | Aleksey Li | Mano Lemmens | Halil Haykul |
 | :---: |:---:| :---:|  :---:|
-| ![Jussi](https://avatars1.githubusercontent.com/u/46483286?s=200&v=4)|  |  |  |
+| ![Jussi](https://avatars1.githubusercontent.com/u/46483286?s=200&v=4)| ![image](https://github.com/JussiCcoyllo/calendar-app-frontend/assets/46483286/3673cfd8-6281-4d51-90e3-f462e553cb71)
+|  |  |
 | <a href="https://github.com/JussiCcoyllo" target="_blank">`github.com/JussiCcoyllo`</a> | <a href="https://github.com/alekseylee" target="_blank">`github.com/alekseylee`</a> | <a href="https://github.com/Mano-lemm" target="_blank">`github.com/Mano-lemm`</a>  | <a href="https://github.com/haykul" target="_blank">`github.com/haykul`</a> |
 
 ---
